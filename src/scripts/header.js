@@ -22,7 +22,7 @@ header.innerHTML = `
             <li><a href="products.html">Men</a></li>
             <li><a href="products.html">Women</a></li>
             <li><a href="products.html">All shoes</a></li>
-            <li><a href="products.html">Upcomming</a></li>
+            <li><a href="products.html">Upcoming</a></li>
             <li><a href="products.html">New in</a></li>
         </ul>
     </nav>`;
