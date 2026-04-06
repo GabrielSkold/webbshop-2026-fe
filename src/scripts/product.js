@@ -5,10 +5,10 @@ const id = params.get("id");
 console.log(id)
 
 const container = document.querySelector("#product-detail");
-
 const imageElement = container.querySelector(".product-detail__image");
 const titleElement = container.querySelector("h1");
 const priceElement = container.querySelector("p");
+const addToCart = container.querySelector("addToCartBtn");
 
 const getProductById = async (id) => {
     const products = await getProducts();
