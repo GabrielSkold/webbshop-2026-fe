@@ -53,7 +53,7 @@ function createProductCard(product) {
   element.className = "product-card";
 
   const imageSection = product.image
-    ? `<img class="product-card__image" src="${product.image}" alt="${product.name}" loading="lazy" />`
+    ? `<img class="product-card__image" src="${product.images[0].url}" alt="${product.name}" loading="lazy" />`
     : `<div class="product-card__image-placeholder">🥬</div>`;
 
   element.innerHTML = `
