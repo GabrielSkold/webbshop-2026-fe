@@ -10,7 +10,7 @@ header.innerHTML = `
             </div>
             <ul class="nav-links">
                 <li><a href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                <li><a href="loginpage.html"><i class="fa-solid fa-user"></i></a></li>
+                <li><a id="user-link" href="loginpage.html"><i class="fa-solid fa-user"></i></a></li>
                 <li><a href="admin.html">Admin</a></li>
             </ul>
             <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
@@ -28,3 +28,13 @@ header.innerHTML = `
     </nav>`;
 
 document.body.append(header);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const userLink = document.getElementById("user-link");
+
+    const token = localStorage.getItem("token");
+
+    if(token) {
+        userLink.href = "/profilepage.html";
+    }
+});
