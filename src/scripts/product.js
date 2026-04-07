@@ -2,35 +2,89 @@ import { getProducts } from "../utils/productsApi.js";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-console.log(id)
+
+let selectedSize = null;
 
 const container = document.querySelector("#product-detail");
 const imageElement = container.querySelector(".product-detail__image");
 const titleElement = container.querySelector("h1");
 const priceElement = container.querySelector("p");
-const addToCart = container.querySelector("addToCartBtn");
+const addToCartButton = container.querySelector("#addToCartBtn");
+const sizeSelect = container.querySelector("#size-selector");
+const productStatus = container.querySelector("#product-status");
 
 const getProductById = async (id) => {
-    const products = await getProducts();
+  const products = await getProducts();
+  const product = products.find((product) => product._id === id);
 
-    const product = products.find(product => product._id === id);
-    console.log(product);
-    // safety check
-    if (!product) {
-        container.innerHTML = "<p>Product not found</p>"
-        return;
-    }
+  if (!product) {
+    container.innerHTML = "<p>Product not found</p>";
+    return;
+  }
 
-    imageElement.innerHTML = `<img src="${product.image}" alt="${product.name}" />`;
-    titleElement.textContent = product.name;
-    priceElement.textContent = `$${product.price}`;
+  imageElement.innerHTML = `<img src="${product.images[0].url}" alt="${product.name}" />`;
+  titleElement.textContent = product.name;
+  priceElement.textContent = `$${product.price}`;
 
-    const productStatus = container.querySelector("#product-status");
+  // Initial state innan size är vald
+  addToCartButton.disabled = true;
+  addToCartButton.textContent = "Select size";
+  productStatus.textContent = "Choose a size";
 
-    if(product.stock > 0) {
-        productStatus.textContent = `In stock: (${product.stock}) left`;
-    } else {
-        productStatus.textContent = "Out of stock";
-    }
-}
+  // Rendera size-knappar
+  sizeSelect.innerHTML = product.sizes
+    .map(
+      (size) => `
+        <button data-size="${size.size}">
+          ${size.size}
+        </button>
+      `
+    )
+    .join("");
+
+  const sizeButtons = sizeSelect.querySelectorAll("button");
+
+  sizeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        // removes active from all buttons
+        sizeButtons.forEach(btn => btn.classList.remove("active"));
+        
+        // adds active state if button is clicked
+        button.classList.add("active");
+
+        // Saves selected size
+        selectedSize = button.dataset.size;
+        console.log("Selected size:", selectedSize);
+
+        // finds the right selected size
+        const selectedSizeObject = product.sizes.find(
+            (size) => String(size.size) === selectedSize
+        );
+
+        console.log("Selected size object:", selectedSizeObject);
+
+        // updates UI depending on stock
+        if (selectedSizeObject.stock > 0) {
+            productStatus.textContent = `In stock: ${selectedSizeObject.stock} left`;
+            addToCartButton.disabled = false;
+            addToCartButton.textContent = "Add to cart";
+        } else {
+            productStatus.textContent = "Out of stock";
+            addToCartButton.disabled = true;
+            addToCartButton.textContent = "Out of stock";
+        }
+    })
+  });
+
+  addToCartButton.addEventListener("click", () => {
+    if (!selectedSize) return;
+    console.log(`Added ${product.name}, size ${selectedSize} to the cart`);
+  });
+
+  console.log("product object:", product);
+  console.log("product.stock:", product.stock);
+  console.log("sizes:", product.sizes);
+  console.log("product.variants:", product.variants);
+};
+
 getProductById(id);

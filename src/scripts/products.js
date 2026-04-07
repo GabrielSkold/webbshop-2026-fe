@@ -19,13 +19,14 @@ const init = async () => {
                 <article class="product-card">
                     <img
                         class="product-card__image"
-                        src="${product.image}"
+                        src="${product.images[0].url}"
                         alt="${product.name}"
                     />
                     <div class="product-card__body">
                         <h3>${product.name}</h3>
                         <p class="product-card__price">$${product.price}</p>
-                        <p>${product.stock > 0 ? `In stock: ${product.stock}` : "Out of stock"}</p>
+                        <p>${product.dropStatus}</p>
+                        <p>${product.dropAt}</p>
                     </div>
                 </article>
             </a>

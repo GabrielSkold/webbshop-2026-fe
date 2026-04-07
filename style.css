@@ -462,3 +462,8 @@ body {
 .footer-links a:hover {
   color: var(--color-primary);
 }
+
+.active {
+  border: 1px solid black;
+  background-color: #eee;
+}
