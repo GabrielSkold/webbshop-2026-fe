@@ -140,6 +140,22 @@ body {
   margin: 0 auto;
 }
 
+.dropdown-allShoes {
+    display: none;
+    position: absolute;
+    background-color: black;
+    list-style: none;
+    padding: 0;
+}
+
+.allShoes {
+    position: relative;
+}
+
+.allShoes:hover .dropdown-allShoes {
+    display: block;
+}
+
 @media (max-width: 768px) {
   .underheader {
     display: none;
