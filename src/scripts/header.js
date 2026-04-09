@@ -10,7 +10,7 @@ header.innerHTML = `
             </div>
             <ul class="nav-links">
                 <li><a href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
-                <li><a id="user-link" href="loginpage.html"><i class="fa-solid fa-user"></i></a></li>
+                <li><a id="user-link" href="loginpage.html">Log in</a></li>
                 <li><a href="admin.html">Admin</a></li>
             </ul>
             <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(token) {
         userLink.href = "/profilepage.html";
+        const loginLogo = document.querySelector("#user-link")
+        loginLogo.innerHTML = `<i class="fa-solid fa-user"></i>`;
     }
 });
 
-const allShoes = document.querySelector(".allShoes");
 
 
 
