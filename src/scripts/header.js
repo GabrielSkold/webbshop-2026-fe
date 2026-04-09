@@ -19,10 +19,9 @@ header.innerHTML = `
     <nav class="underheader">
         <ul class="brand-links">
             <li><a href="products.html">Home</a></li>
-            <li><a href="products.html">Men</a></li>
-            <li><a href="products.html">Women</a></li>
-            <li><a href="products.html">All shoes</a></li>
-            <li><a href="products.html">Upcoming</a></li>
+            <li class="allShoes"><a href="products.html">All shoes</a></li>
+            <li><a href="products.html">Live</a></li>
+            <li><a href="products.html">Upcomming</a></li>
             <li><a href="products.html">New in</a></li>
         </ul>
     </nav>`;
@@ -38,3 +37,5 @@ document.addEventListener("DOMContentLoaded", () => {
         userLink.href = "/profilepage.html";
     }
 });
+
+const allShoes = document.querySelector("")
