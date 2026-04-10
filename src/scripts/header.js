@@ -22,13 +22,13 @@ header.innerHTML = `
             <li class="allShoes">
                 <a href="products.html">All shoes</a>
                 <ul class="dropdown-allShoes">
-                    <li><a href="products.html">Live</a></li>
-                    <li><a href="products.html">Upcomming</a></li>
+                    <li><a href="products.html?dropStatus=Live">Live</a></li>
+                    <li><a href="products.html?dropStatus=Upcoming">Upcoming</a></li>
                     <li><a href="products.html">New in</a></li>
                 </ul>
             </li>
-            <li><a href="products.html">Live</a></li>
-            <li><a href="products.html">Upcomming</a></li>
+            <li><a href="products.html?dropStatus=Live">Live</a></li>
+            <li><a href="products.html?dropStatus=Upcoming">Upcoming</a></li>
             <li><a href="products.html">New in</a></li>
         </ul>
     </nav>`;

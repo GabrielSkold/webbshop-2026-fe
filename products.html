@@ -17,7 +17,33 @@
     <!-- MAIN CONTENT -->
     <main class="main-content">
       <h1>Products</h1>
-      <div id="products"></div>
+      <button id="filterBtn">Filters</button>
+      <div class="products-wrapper">
+        <aside class="filterContainer">
+          <div id="filterDropdown" class="filter-dropdown hidden">
+              <select id="brandFilter">
+                  <option value="">All brands</option>
+              </select>
+              <select id="sizeFilter">
+                  <option value="">All sizes</option>
+              </select>
+              <select id="colorFilter">
+                  <option value="">All colors</option>
+              </select>
+              <select id="dropStatusFilter">
+                  <option value="">All statuses</option>
+              </select>
+              <input type="number" id="priceFilter" placeholder="Max price" />
+              <select id="stockFilter">
+                  <option value="">All</option>
+                  <option value="true">In stock</option>
+                  <option value="false">Out of stock</option>
+              </select>
+              <button id="applyFilter">Apply</button>
+          </div>
+        </aside>
+        <div id="products"></div>
+      </div>
     </main>
 
     <!-- FOOTER -->
