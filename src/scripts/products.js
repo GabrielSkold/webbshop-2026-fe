@@ -1,5 +1,6 @@
 import { getProducts } from "../utils/productsApi.js";
-
+import { updateCartCount } from "./cart.js"
+updateCartCount();
 const container = document.querySelector("#products");
 
 const init = async () => {
