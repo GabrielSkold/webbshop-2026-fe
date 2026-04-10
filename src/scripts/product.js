@@ -1,4 +1,6 @@
 import { getProducts } from "../utils/productsApi.js";
+import { updateCartCount } from "./cart.js"
+updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -79,12 +81,38 @@ const getProductById = async (id) => {
   addToCartButton.addEventListener("click", () => {
     if (!selectedSize) return;
     console.log(`Added ${product.name}, size ${selectedSize} to the cart`);
+
+    const item = {
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize,
+        quantity: 1
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if(cart === null) {
+        cart = []
+    }
+
+    const existingItem = cart.find(cartItem =>
+        cartItem.productId === item.productId && 
+        cartItem.size === item.size
+    );
+
+    if(existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push(item);
+    }
+    
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log(cart);
+    updateCartCount();
   });
 
   console.log("product object:", product);
   console.log("product.stock:", product.stock);
   console.log("sizes:", product.sizes);
-  console.log("product.variants:", product.variants);
 };
-
 getProductById(id);

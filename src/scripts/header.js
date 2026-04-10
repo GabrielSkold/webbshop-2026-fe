@@ -9,7 +9,7 @@ header.innerHTML = `
                 <input id="search-bar" placeholder="Search" />
             </div>
             <ul class="nav-links">
-                <li><a href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li><a id="cart-link" href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i>(0)</a></li>
                 <li><a id="user-link" href="loginpage.html">Log in</a></li>
                 <li><a href="admin.html">Admin</a></li>
             </ul>

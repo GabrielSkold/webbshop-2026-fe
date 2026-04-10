@@ -1,4 +1,6 @@
 import { getProducts } from "../utils/productsApi.js";
+import { updateCartCount } from "./cart.js";
+updateCartCount();
 
 // TEMP: Default products for rendering when backend is unavailable
 const TEMP_PRODUCTS = [
