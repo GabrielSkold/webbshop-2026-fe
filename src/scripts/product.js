@@ -1,26 +1,5 @@
 import { getProducts } from "../utils/productsApi.js";
-
-// Cart function
-const cartLink = document.querySelector("#cart-link");
-
-const updateCartCount = () => {
-
-    let cart = JSON.parse(localStorage.getItem("cart"));
-
-    if(!cart) {
-        cart = [];
-    }
-
-    let totalCount = cart.reduce((sum, item) => {
-        return sum + (item.quantity || 0);
-    })
-
-    
-
-    if(cartLink) {
-        cartLink.textContent = `Cart (${totalCount})`
-    };
-};
+import { updateCartCount } from "./cart.js"
 updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
@@ -129,12 +108,11 @@ const getProductById = async (id) => {
     
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log(cart);
+    updateCartCount();
   });
 
   console.log("product object:", product);
   console.log("product.stock:", product.stock);
   console.log("sizes:", product.sizes);
 };
-
-
 getProductById(id);
