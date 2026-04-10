@@ -19,7 +19,6 @@ header.innerHTML = `
     <nav class="underheader">
         <ul class="brand-links">
             <li><a href="products.html">Home</a></li>
-<<<<<<< Updated upstream
             <li class="allShoes">
                 <a href="products.html">All shoes</a>
                 <ul class="dropdown-allShoes">
@@ -28,9 +27,6 @@ header.innerHTML = `
                     <li><a href="products.html">New in</a></li>
                 </ul>
             </li>
-=======
-            <li><a href="products.html">All shoes</a></li>
->>>>>>> Stashed changes
             <li><a href="products.html">Live</a></li>
             <li><a href="products.html">Upcomming</a></li>
             <li><a href="products.html">New in</a></li>
