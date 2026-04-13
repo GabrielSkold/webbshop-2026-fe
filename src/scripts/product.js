@@ -1,5 +1,5 @@
 import { getProducts } from "../utils/productsApi.js";
-import { updateCartCount } from "./cart.js"
+import { updateCartCount } from "./cart.js";
 updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
@@ -26,7 +26,7 @@ const getProductById = async (id) => {
 
   imageElement.innerHTML = `<img src="${product.images[0].url}" alt="${product.name}" />`;
   titleElement.textContent = product.name;
-  priceElement.textContent = `$${product.price}`;
+  priceElement.textContent = `${product.price}kr`;
 
   // Initial state innan size är vald
   addToCartButton.disabled = true;
@@ -40,7 +40,7 @@ const getProductById = async (id) => {
         <button data-size="${size.size}">
           ${size.size}
         </button>
-      `
+      `,
     )
     .join("");
 
@@ -48,34 +48,34 @@ const getProductById = async (id) => {
 
   sizeButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        // removes active from all buttons
-        sizeButtons.forEach(btn => btn.classList.remove("active"));
-        
-        // adds active state if button is clicked
-        button.classList.add("active");
+      // removes active from all buttons
+      sizeButtons.forEach((btn) => btn.classList.remove("active"));
 
-        // Saves selected size
-        selectedSize = button.dataset.size;
-        console.log("Selected size:", selectedSize);
+      // adds active state if button is clicked
+      button.classList.add("active");
 
-        // finds the right selected size
-        const selectedSizeObject = product.sizes.find(
-            (size) => String(size.size) === selectedSize
-        );
+      // Saves selected size
+      selectedSize = button.dataset.size;
+      console.log("Selected size:", selectedSize);
 
-        console.log("Selected size object:", selectedSizeObject);
+      // finds the right selected size
+      const selectedSizeObject = product.sizes.find(
+        (size) => String(size.size) === selectedSize,
+      );
 
-        // updates UI depending on stock
-        if (selectedSizeObject.stock > 0) {
-            productStatus.textContent = `In stock: ${selectedSizeObject.stock} left`;
-            addToCartButton.disabled = false;
-            addToCartButton.textContent = "Add to cart";
-        } else {
-            productStatus.textContent = "Out of stock";
-            addToCartButton.disabled = true;
-            addToCartButton.textContent = "Out of stock";
-        }
-    })
+      console.log("Selected size object:", selectedSizeObject);
+
+      // updates UI depending on stock
+      if (selectedSizeObject.stock > 0) {
+        productStatus.textContent = `In stock: ${selectedSizeObject.stock} left`;
+        addToCartButton.disabled = false;
+        addToCartButton.textContent = "Add to cart";
+      } else {
+        productStatus.textContent = "Out of stock";
+        addToCartButton.disabled = true;
+        addToCartButton.textContent = "Out of stock";
+      }
+    });
   });
 
   addToCartButton.addEventListener("click", () => {
@@ -83,29 +83,30 @@ const getProductById = async (id) => {
     console.log(`Added ${product.name}, size ${selectedSize} to the cart`);
 
     const item = {
-        productId: product._id,
-        name: product.name,
-        price: product.price,
-        size: selectedSize,
-        quantity: 1
-    }
+      productId: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: selectedSize,
+      quantity: 1,
+    };
 
     let cart = JSON.parse(localStorage.getItem("cart"));
-    if(cart === null) {
-        cart = []
+    if (cart === null) {
+      cart = [];
     }
 
-    const existingItem = cart.find(cartItem =>
-        cartItem.productId === item.productId && 
-        cartItem.size === item.size
+    const existingItem = cart.find(
+      (cartItem) =>
+        cartItem.productId === item.productId && cartItem.size === item.size,
     );
 
-    if(existingItem) {
-        existingItem.quantity++;
+    if (existingItem) {
+      existingItem.quantity++;
     } else {
-        cart.push(item);
+      cart.push(item);
     }
-    
+
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log(cart);
     updateCartCount();
