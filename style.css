@@ -362,6 +362,21 @@ body {
   background: var(--color-primary-hover);
 }
 
+.hidden {
+  display: none;
+}
+
+.products-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.filterContainer {
+  position: sticky;
+  top: 1rem;
+}
+
 /* Loading / empty / error states */
 #products > p {
   grid-column: 1 / -1;
