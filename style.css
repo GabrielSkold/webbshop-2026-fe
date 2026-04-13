@@ -499,8 +499,19 @@ body {
 }
 
 .active {
-  border: 1px solid black;
+  border: 2px solid black;
   background-color: #eee;
+}
+
+.cart-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 80px;
+  height: auto;
 }
 
 /* Profilsida */
