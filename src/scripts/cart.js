@@ -36,7 +36,9 @@ const renderCartItems = () => {
             <h3>${item.name}</h3>
             <p>Size: ${item.size}</p>
             <p>Price: ${item.price}kr</p>
-            <p>Quantity: ${item.quantity}</p>
+            <button class="decrease" data-index="${index}">-</button>
+            <span>${item.quantity}</span>
+            <button class="increase" data-index="${index}">+</button>
             <button class="remove-btn" data-index="${index}">Remove</button>
         </div>   
     `,
@@ -58,6 +60,32 @@ const renderCartItems = () => {
 
       cart.splice(index, 1);
 
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCartItems();
+    });
+  });
+
+  const increaseButton = document.querySelectorAll(".increase");
+  increaseButton.forEach((button) => {
+    button.addEventListener("click", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const index = button.dataset.index;
+      cart[index].quantity++;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      renderCartItems();
+    });
+  });
+
+  const decreaseButton = document.querySelectorAll(".decrease");
+  decreaseButton.forEach((button) => {
+    button.addEventListener("click", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const index = button.dataset.index;
+      if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+      }
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
       renderCartItems();
