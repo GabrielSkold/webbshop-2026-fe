@@ -1,5 +1,7 @@
 import { getProducts } from "../utils/productsApi.js";
 import { updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 updateCartCount();
 
 // TEMP: Default products for rendering when backend is unavailable
