@@ -1,16 +1,5 @@
-export const updateCartCount = () => {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  const totalCount = cart.reduce((sum, item) => {
-    return sum + (item.quantity || 0);
-  }, 0);
-
-  const cartLink = document.querySelector("#cart-link");
-
-  if (cartLink) {
-    cartLink.textContent = `Cart (${totalCount})`;
-  }
-};
+import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
+updateCartCount();
 
 const renderCartItems = () => {
   const cartContainer = document.querySelector("#cart-items");
@@ -18,7 +7,7 @@ const renderCartItems = () => {
 
   if (!cartContainer) return;
 
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cart = getCart();
   if (cart.length === 0) {
     cartContainer.innerHTML = "<p>Your cart is empty</p>";
 
@@ -52,41 +41,43 @@ const renderCartItems = () => {
   if (cartTotal) {
     cartTotal.textContent = `Total: ${total}kr`;
   }
-  const removeItem = document.querySelectorAll(".remove-btn");
+  const removeButtons = cartContainer.querySelectorAll(".remove-btn");
 
-  removeItem.forEach((button) => {
+  removeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const index = button.dataset.index;
 
       cart.splice(index, 1);
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+      saveCart(cart);
       updateCartCount();
       renderCartItems();
     });
   });
 
-  const increaseButton = document.querySelectorAll(".increase");
-  increaseButton.forEach((button) => {
+  const increaseButtons = cartContainer.querySelectorAll(".increase");
+  increaseButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const index = button.dataset.index;
+      const cart = getCart();
+      const index = Number(button.dataset.index);
       cart[index].quantity++;
-      localStorage.setItem("cart", JSON.stringify(cart));
+
+      saveCart(cart);
       updateCartCount();
       renderCartItems();
     });
   });
 
-  const decreaseButton = document.querySelectorAll(".decrease");
-  decreaseButton.forEach((button) => {
+  const decreaseButtons = cartContainer.querySelectorAll(".decrease");
+  decreaseButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const index = button.dataset.index;
+      const cart = getCart();
+      const index = Number(button.dataset.index);
       if (cart[index].quantity > 1) {
         cart[index].quantity--;
       }
-      localStorage.setItem("cart", JSON.stringify(cart));
+
+      saveCart(cart);
       updateCartCount();
       renderCartItems();
     });
