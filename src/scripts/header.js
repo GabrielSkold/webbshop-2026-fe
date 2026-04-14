@@ -10,8 +10,8 @@ header.innerHTML = `
             </div>
             <ul class="nav-links">
                 <li><a id="cart-link" href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i>(0)</a></li>
+                <li><a id="wishlist-link" href="wishlist.html"><i class="fa-solid fa-heart"></i></a></li>
                 <li><a id="user-link" href="loginpage.html">Log in</a></li>
-                <li><a href="admin.html">Admin</a></li>
             </ul>
             <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
         </div>
