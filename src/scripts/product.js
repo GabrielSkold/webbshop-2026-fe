@@ -1,5 +1,5 @@
 import { getProducts } from "../utils/productsApi.js";
-import { updateCartCount } from "./cart.js";
+import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
 updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
@@ -91,7 +91,7 @@ const getProductById = async (id) => {
       quantity: 1,
     };
 
-    let cart = JSON.parse(localStorage.getItem("cart"));
+    let cart = getCart();
     if (cart === null) {
       cart = [];
     }
@@ -107,7 +107,7 @@ const getProductById = async (id) => {
       cart.push(item);
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart(cart);
     console.log(cart);
     updateCartCount();
   });

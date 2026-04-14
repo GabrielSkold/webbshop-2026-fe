@@ -1,5 +1,5 @@
 import { getProducts } from "../utils/productsApi.js";
-import { updateCartCount } from "./cart.js";
+import { updateCartCount } from "../utils/cartUtils.js";
 updateCartCount();
 const container = document.querySelector("#products");
 
