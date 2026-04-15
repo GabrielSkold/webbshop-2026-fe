@@ -1,4 +1,5 @@
 import { getCart, updateCartCount } from "../utils/cartUtils.js";
+import { createOrder } from "../utils/ordersApi.js";
 
 const checkoutContainer = document.querySelector("#checkout-items");
 const checkoutTotal = document.querySelector("#checkout-total");
@@ -51,3 +52,30 @@ const renderCheckout = () => {
 };
 updateCartCount();
 renderCheckout();
+
+placeOrderButton?.addEventListener("click", async () => {
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  placeOrderButton.disabled = true;
+  placeOrderButton.textContent = "Placing order...";
+
+  const orderData = {
+    items: cart.map((item) => ({
+      product: item.productId,
+      size: item.size,
+    })),
+  };
+
+  try {
+    await createOrder(orderData);
+    localStorage.removeItem("cart");
+    updateCartCount();
+    window.location.href = "/order-confirmation.html";
+  } catch (error) {
+    console.error("Failed to place order:", error);
+    placeOrderButton.disabled = false;
+    placeOrderButton.textContent = "Place order";
+    alert("Something went wrong. Please try again.");
+  }
+});
