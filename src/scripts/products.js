@@ -21,13 +21,14 @@ const init = async () => {
           (product) => `
                 <a class="product-href" href="product.html?id=${product._id}">
                     <article class="product-card">
-                        <img class="product-card__image" src="${product.images}" alt="${product.name}" />
+                      <img class="product-card__image" src="${product.images}" alt="${product.name}">
                         <div class="product-card__body">
                             <h3>${product.name}</h3>
                             <p class="product-card__price">$${product.price}</p>
                             <p>${product.dropStatus}</p>
                             <p>${product.dropAt}</p>
                         </div>
+                      </img>
                     </article>
                 </a>
             `,
@@ -44,6 +45,8 @@ const init = async () => {
     const filterDropdown = document.querySelector("#filterDropdown");
     const urlParams = new URLSearchParams(window.location.search);
     const dropStatusParam = urlParams.get("dropStatus");
+    const filterBtn = document.querySelector("#filterBtn");
+    const wrapper = document.querySelector(".products-wrapper");
 
     if (dropStatusParam) {
       const urlFiltered = products.filter(
@@ -74,8 +77,9 @@ const init = async () => {
       dropStatusFilter.innerHTML += `<option value="${status}">${status}</option>`;
     });
 
-    document.querySelector("#filterBtn").addEventListener("click", () => {
+    filterBtn.addEventListener("click", () => {
       filterDropdown.classList.toggle("hidden");
+      wrapper.classList.toggle("filter-open"); // 🔥 THIS is the key
     });
 
     document.querySelector("#applyFilter").addEventListener("click", () => {
