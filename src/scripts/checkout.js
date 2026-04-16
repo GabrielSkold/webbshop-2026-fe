@@ -68,9 +68,12 @@ placeOrderButton?.addEventListener("click", async () => {
   };
 
   try {
-    await createOrder(orderData);
+    const createdOrder = await createOrder(orderData);
+
+    sessionStorage.setItem("latestOrder", JSON.stringify(createdOrder));
+
     localStorage.removeItem("cart");
-    updateCartCount();
+
     window.location.href = "/order-confirmation.html";
   } catch (error) {
     console.error("Failed to place order:", error);
