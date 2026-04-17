@@ -9,7 +9,8 @@ header.innerHTML = `
             <li><a href="products.html?dropStatus=Live">New Balance</a></li>
             <li><a href="products.html?dropStatus=Upcoming">Asics</a></li>
             <li><a href="products.html?dropStatus=Live">Vans</a></li>
-            
+        </ul>
+        <ul class="brand-links">
             <li><a href="products.html?dropStatus=Upcoming">Nike</a></li>
             <li><a href="products.html?dropStatus=Live">Jordan</a></li>
             <li><a href="products.html?dropStatus=Upcoming">Adidas</a></li>
@@ -23,7 +24,7 @@ header.innerHTML = `
         <div class="header-links">
             <a href="products.html?dropStatus=Upcoming">Upcoming</a>
             <a href="products.html">New in</a>
-            <a href="products.html?dropStatus=Live">Live</a>
+            <a href="products.html?dropStatus=Live">All Sneakers</a>
         </div>
         <div class="nav-links">
             <div class="nav-icons">

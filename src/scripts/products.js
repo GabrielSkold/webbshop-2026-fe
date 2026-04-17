@@ -21,15 +21,15 @@ const init = async () => {
           (product) => `
                 <a class="product-href" href="product.html?id=${product._id}">
                     <article class="product-card">
-                      <img class="product-card__image" src="${product.images}" alt="${product.name}">
-                        <div class="product-card__body">
+                      <div class="product-card__image" style="background-image: url('${product.images}')">
+                        <p>${product.dropStatus}</p>
+                      </div>
+                      <div class="product-card__body">
                             <h3>${product.name}</h3>
                             <p class="product-card__price">$${product.price}</p>
-                            <p>${product.dropStatus}</p>
-                            <p>${product.dropAt}</p>
-                        </div>
-                      </img>
-                    </article>
+                      </div>
+                    </img>
+                  </article>
                 </a>
             `,
         )
