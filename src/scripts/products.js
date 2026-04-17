@@ -22,15 +22,15 @@ const init = async () => {
         .map(
           (product) => `
                 <a class="product-href" href="product.html?id=${product._id}">
-                  <div class="product-card__image" 
-                      style="background-image: url('${product.images[0]?.url}')">
-                        <p>${product.dropStatus}</p>
+                    <article class="product-card">
+                      <div class="product-card__image" 
+                        style="background-image: url('${product.images[0]?.url}')">
+                          <p>${product.dropStatus}</p>
                       </div>
                       <div class="product-card__body">
                             <h3>${product.name}</h3>
                             <p class="product-card__price">$${product.price}</p>
                       </div>
-                    </img>
                   </article>
                 </a>
             `,
