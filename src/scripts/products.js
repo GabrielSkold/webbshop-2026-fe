@@ -22,8 +22,8 @@ const init = async () => {
         .map(
           (product) => `
                 <a class="product-href" href="product.html?id=${product._id}">
-                    <article class="product-card">
-                      <div class="product-card__image" style="background-image: url('${product.images}')">
+                  <div class="product-card__image" 
+                      style="background-image: url('${product.images[0]?.url}')">
                         <p>${product.dropStatus}</p>
                       </div>
                       <div class="product-card__body">

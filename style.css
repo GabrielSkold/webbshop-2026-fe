@@ -374,6 +374,9 @@ body {
   aspect-ratio: 1;
   object-fit: cover;
   background: var(--color-bg-alt);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .product-card__image p {
