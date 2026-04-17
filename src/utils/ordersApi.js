@@ -24,3 +24,26 @@ export async function createOrder(orderData) {
 
   throw new Error(errorMessage);
 }
+
+export async function getOrdersByUser(userId) {
+  const token = localStorage.getItem("token");
+
+  const url = new URL(`orders/user/${userId}`, getBaseUrl());
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.ok) {
+    return response.json();
+  }
+
+  const err = await response.json().catch(() => ({}));
+  console.log("Fel från backend:", err);
+
+  throw new Error(err.message || "Failed to fetch orders");
+}
