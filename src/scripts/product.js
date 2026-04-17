@@ -1,5 +1,7 @@
 import { getProducts } from "../utils/productsApi.js";
-import { updateCartCount } from "./cart.js";
+import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
@@ -14,6 +16,7 @@ const priceElement = container.querySelector("p");
 const addToCartButton = container.querySelector("#addToCartBtn");
 const sizeSelect = container.querySelector("#size-selector");
 const productStatus = container.querySelector("#product-status");
+const wishlistButton = container.querySelector("#wishlistBtn");
 
 const getProductById = async (id) => {
   const products = await getProducts();
@@ -91,7 +94,7 @@ const getProductById = async (id) => {
       quantity: 1,
     };
 
-    let cart = JSON.parse(localStorage.getItem("cart"));
+    let cart = getCart();
     if (cart === null) {
       cart = [];
     }
@@ -107,9 +110,32 @@ const getProductById = async (id) => {
       cart.push(item);
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart(cart);
     console.log(cart);
     updateCartCount();
+  });
+
+  wishlistButton.addEventListener("click", () => {
+    const item = {
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0].url,
+        dropAt: product.dropAt,
+    };
+
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    
+    const exists = wishlist.find(w => w.productId === product._id);
+    
+    if(exists) {
+        alert("Already in wishlist!");
+    } else {
+        wishlist.push(item);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        updateWishlistCount();
+        alert("Added to wishlist!");
+    }
   });
 
   console.log("product object:", product);

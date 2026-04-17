@@ -1,5 +1,7 @@
 import { getProducts } from "../utils/productsApi.js";
-import { updateCartCount } from "./cart.js";
+import { updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 updateCartCount();
 
 // TEMP: Default products for rendering when backend is unavailable
@@ -75,10 +77,10 @@ function createProductCard(product) {
 }
 
 const heroContent = document.querySelector(".hero");
-const images = ["public/hero.png", "public/hero2.png", "public/hakim.png"]
+const images = ["public/hero.png", "public/hero2.png", "public/hakim.png"];
 let index = 0;
 
-heroContent.style.backgroundImage = `url('${images[index]}')`
+heroContent.style.backgroundImage = `url('${images[index]}')`;
 
 heroContent.innerHTML = `<div class="arrowSection">
   <button class="leftArrow"><i class="fa solid fa-arrow-left"></i></button>
@@ -94,16 +96,16 @@ heroContent.innerHTML = `<div class="arrowSection">
 const heroTimer = document.querySelector(".heroTimer");
 
 function updateCountdown() {
-    const targetDate = new Date("2026-04-08"); // sätt ditt datum här
-    const now = new Date();
-    const diff = targetDate - now;
+  const targetDate = new Date("2026-04-08"); // sätt ditt datum här
+  const now = new Date();
+  const diff = targetDate - now;
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    heroTimer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  heroTimer.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
 updateCountdown();
@@ -124,6 +126,4 @@ rightArrow.addEventListener("click", () => {
 
 const heroBtn = document.querySelector(".heroShop");
 
-heroBtn.addEventListener("click", () => {
-  
-})
+heroBtn.addEventListener("click", () => {});

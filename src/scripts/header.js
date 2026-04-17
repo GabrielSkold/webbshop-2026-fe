@@ -30,6 +30,7 @@ header.innerHTML = `
             <div class="nav-icons">
                 <a id="cart-link" href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i>(0)</a>
                 <a id="user-link" href="loginpage.html"><img src="/public/user-icon.png" alt="user"></a>
+                <li><a id="wishlist-link" href="wishlist.html"><i class="fa-solid fa-heart"></i></a></li>
                 <a href="admin.html">Admin</a>
             </div>
             <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
