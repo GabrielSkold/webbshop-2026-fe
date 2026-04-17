@@ -23,6 +23,21 @@
   --shadow-hover: 0 8px 24px rgba(45, 90, 61, 0.12);
 }
 
+@font-face {
+  font-family: "AtypDisplay-Regular";
+  src: url("/fonts/AtypDisplay-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "AtypDisplay-Medium";
+  src: url("/fonts/AtypDisplay-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Block Tags";
+  src: url("/fonts/Block Tags.otf") format("opentype");
+}
+
 * {
   box-sizing: border-box;
 }
