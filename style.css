@@ -924,20 +924,31 @@ body {
   }
 }
 
-.order-item img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+.order-item {
+  display: grid;
+  grid-template-columns: 250px 150px 100px 120px;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e5e5e5;
   border-radius: 8px;
+  margin-bottom: 0.75rem;
 }
 
-.order-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.order-item h4 {
+  margin: 0;
+  /* prevent long names from breaking the grid */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  background: #fafafa;
+.order-item img {
+  max-width: 100%;
+  height: auto;
+  justify-self: center;
+}
+
+.order-item p {
+  margin: 0;
 }
