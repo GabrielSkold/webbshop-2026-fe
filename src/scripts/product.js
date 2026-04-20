@@ -11,6 +11,9 @@ let selectedSize = null;
 
 const container = document.querySelector("#product-detail");
 const imageElement = container.querySelector(".product-detail__image");
+const imageElement2 = container.querySelector(".product-detail__image2");
+const imageElement3 = container.querySelector(".product-detail__image3");
+const imageElement4 = container.querySelector(".product-detail__image4");
 const titleElement = container.querySelector("h1");
 const priceElement = container.querySelector("p");
 const addToCartButton = container.querySelector("#addToCartBtn");
@@ -28,6 +31,9 @@ const getProductById = async (id) => {
   }
 
   imageElement.innerHTML = `<img src="${product.images[0].url}" alt="${product.name}" />`;
+  imageElement2.innerHTML = `<img src="${product.images[1].url}" alt="${product.name}" />`;
+  imageElement3.innerHTML = `<img src="${product.images[2].url}" alt="${product.name}" />`;
+  imageElement4.innerHTML = `<img src="${product.images[3].url}" alt="${product.name}" />`;
   titleElement.textContent = product.name;
   priceElement.textContent = `${product.price}kr`;
 
