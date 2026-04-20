@@ -1,4 +1,7 @@
 /* product page styles */
+body {
+    font-family: var(--font-body);
+}
 
 .product-page {
     max-width: 1920px;
@@ -73,7 +76,6 @@
 }
 
 .product-brand {
-    font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 400;
     color: black;
@@ -117,6 +119,7 @@
 }
 
 #size-selector button {
+    font-family: var(--font-body);
     padding: 10px 16px;
     border: 1px solid #000;
     background: #fff;
@@ -173,7 +176,8 @@
     color: #fff;
     border: none;
     font-size: 0.85rem;
-    font-weight: 700;
+    font-weight: 500;
+    font-family: var(--font-body);
     letter-spacing: 0.1em;
     cursor: pointer;
     transition: background 0.2s;

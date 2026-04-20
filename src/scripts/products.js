@@ -21,7 +21,7 @@ const init = async () => {
       container.innerHTML = products
         .map(
           (product) => `
-                <a class="product-href" href="product.html?id=${product._id}">
+                <a class="product-href" href="product.html?slug=${product.slug}">
                     <article class="product-card">
                       <div class="product-card__image" 
                         style="background-image: url('${product.images[0]?.url}')">

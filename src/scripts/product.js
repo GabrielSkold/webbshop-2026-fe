@@ -1,11 +1,11 @@
-import { getProducts } from "../utils/productsApi.js";
+import { getProducts, getProductBySlug } from "../utils/productsApi.js";
 import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
 import { updateWishlistCount } from "./wishlist.js";
 updateWishlistCount();
 updateCartCount();
 
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const slug = params.get("slug");
 
 let selectedSize = null;
 
@@ -45,9 +45,8 @@ function startCountdown(dropAt) {
     setInterval(update, 1000);
 }
 
-const getProductById = async (id) => {
-    const products = await getProducts();
-    const product = products.find((p) => p._id === id);
+const getProductById = async (slug) => {
+    const product = await getProductBySlug(slug);
 
     if (!product) {
         document.querySelector(".product-page").innerHTML = "<p>Product not found</p>";
@@ -59,6 +58,7 @@ const getProductById = async (id) => {
     mainImage.alt = product.name;
 
     titleElement.textContent = product.name;
+    document.title = `${product.name} - Sole Search`;
     if (brandElement) brandElement.textContent = product.brand || "";
 
     if (product.dropAt) {
@@ -168,4 +168,4 @@ const getProductById = async (id) => {
     });
 };
 
-getProductById(id);
+getProductById(slug);
