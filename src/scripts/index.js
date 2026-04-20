@@ -56,7 +56,7 @@ function createProductCard(product) {
   const element = document.createElement("div");
   element.className = "product-card";
 
-  const imageSection = product.image
+  const imageSection = product.images
     ? `<img class="product-card__image" src="${product.images[0].url}" alt="${product.name}" loading="lazy" />`
     : `<div class="product-card__image-placeholder">🥬</div>`;
 
