@@ -149,12 +149,12 @@ body {
 
 .brand-links {
   animation: marquee 20s linear infinite;
-
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1.5rem;
   list-style: none;
-  padding: 0;
+  padding-bottom: 3px;
   margin: 0;
   width: 100vw;
 }
@@ -467,12 +467,10 @@ body {
 }
 
 .add-to-cart-btn {
-  margin-top: auto;
-  background: var(--color-primary);
-  color: white;
-  border: none;
+  color: var(--color-text-muted);
+  border: 1px solid black;
+  margin: 5px 0;
   padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
@@ -481,6 +479,8 @@ body {
 }
 
 .add-to-cart-btn:hover {
+  border: 1px solid white;
+  color: white;
   background: var(--color-primary-hover);
 }
 
