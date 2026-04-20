@@ -53,8 +53,9 @@ async function loadProducts() {
 
 // Function to create an individual product card
 function createProductCard(product) {
-  const element = document.createElement("div");
-  element.className = "product-card";
+  const element = document.createElement("a");
+  element.className = "product-card product-href";
+  element.href = `product.html?slug=${product.slug}`;
 
   const imageSection = product.images
     ? `<img class="product-card__image" src="${product.images[0].url}" alt="${product.name}" loading="lazy" />`
