@@ -3,20 +3,16 @@ const header = document.querySelector(".site-header");
 header.innerHTML = `
     <nav class="underheader">
         <ul class="brand-links">
-            <li><a href="products.html?dropStatus=Upcoming">Nike</a></li>
-            <li><a href="products.html?dropStatus=Live">Jordan</a></li>
-            <li><a href="products.html?dropStatus=Upcoming">Adidas</a></li>
-            <li><a href="products.html?dropStatus=Live">New Balance</a></li>
-            <li><a href="products.html?dropStatus=Upcoming">Asics</a></li>
-            <li><a href="products.html?dropStatus=Live">Vans</a></li>
-        </ul>
-        <ul class="brand-links">
-            <li><a href="products.html?dropStatus=Upcoming">Nike</a></li>
-            <li><a href="products.html?dropStatus=Live">Jordan</a></li>
-            <li><a href="products.html?dropStatus=Upcoming">Adidas</a></li>
-            <li><a href="products.html?dropStatus=Live">New Balance</a></li>
-            <li><a href="products.html?dropStatus=Upcoming">Asics</a></li>
-            <li><a href="products.html?dropStatus=Live">Vans</a></li>
+            <li><a href="products.html?brand=Nike">Nike</a></li>
+            <li><a href="products.html?brand=Jordan">Jordan</a></li>
+            <li><a href="products.html?brand=Adidas">Adidas</a></li>
+            <li><a href="products.html?brand=New Balance">New Balance</a></li>
+            <li><a href="products.html?brand=Crocs">Crocs</a></li>
+            <li><a href="products.html?brand=Nike">Nike</a></li>
+            <li><a href="products.html?brand=Jordan">Jordan</a></li>
+            <li><a href="products.html?brand=Adidas">Adidas</a></li>
+            <li><a href="products.html?brand=New Balance">New Balance</a></li>
+            <li><a href="products.html?brand=Crocs">Crocs</a></li>
         </ul>
     </nav>
     <nav class="overheader">

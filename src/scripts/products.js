@@ -47,14 +47,14 @@ const init = async () => {
     const filterDropdown = document.querySelector("#filterDropdown");
     const urlParams = new URLSearchParams(window.location.search);
     const dropStatusParam = urlParams.get("dropStatus");
+    const brandParam = urlParams.get("brand");
     const filterBtn = document.querySelector("#filterBtn");
     const wrapper = document.querySelector(".products-wrapper");
 
     if (dropStatusParam) {
-      const urlFiltered = products.filter(
-        (p) => p.dropStatus === dropStatusParam,
-      );
-      renderProducts(urlFiltered);
+      renderProducts(products.filter((p) => p.dropStatus === dropStatusParam));
+    } else if (brandParam) {
+      renderProducts(products.filter((p) => p.brand === brandParam));
     } else {
       renderProducts(products);
     }
