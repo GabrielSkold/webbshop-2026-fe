@@ -378,6 +378,7 @@ body {
 }
 
 .product-card__image {
+  padding: 25px;
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
@@ -385,11 +386,15 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.product-card__image p {
+/* .product-card__image p, .product-card__image h3 {
   margin-left: 25px;
-}
+} */
 
 .product-card__image-placeholder {
   width: 100%;
@@ -430,7 +435,9 @@ body {
 
 .products-card-drop-status {
   text-decoration: underline;
+  margin: 0;
 }
+
 
 .product-card__price {
   color: black;

@@ -26,10 +26,10 @@ const init = async () => {
                       <div class="product-card__image" 
                         style="background-image: url('${product.images[0]?.url}')">
                           <p class="products-card-drop-status">${product.dropStatus}</p>
-                      </div>
-                      <div class="product-card__body">
+                          <div>
                             <h3 class="product-card__name">${product.name}</h3>
                             <p class="product-card__price">${product.price}:-</p>
+                          </div>
                       </div>
                   </article>
                 </a>
