@@ -14,15 +14,20 @@
     </header>
     <main class="product-page">
         <div class="product-page__image-panel">
-            <button class="img-nav img-nav--up"><img src="/public/arrow.svg" alt="previous" /></button>
+            <div class="img-nav-col">
+                <button class="img-nav img-nav--up"><img src="/public/arrow.svg" alt="previous" /></button>
+                <button class="img-nav img-nav--down"><img src="/public/arrow.svg" alt="next" /></button>
+            </div>
             <div class="product-main-image">
                 <img id="main-image" src="" alt="" />
             </div>
-            <button class="img-nav img-nav--down"><img src="/public/arrow.svg" alt="next" /></button>
         </div>
         <div class="product-page__info-panel">
-            <p class="product-brand" id="product-brand"></p>
-            <h1 id="product-name">Loading...</h1>
+            <div class="brand-price-container">
+                    <p class="product-brand" id="product-brand"></p>
+                    <h1 class="product-name" id="product-name">Loading...</h1>
+                    <h2 class="product-price" id="product-price"></h2>
+                </div>
             <p id="countdown" class="product-countdown"></p>
             <div class="product-sizes">
                 <div class="sizes-header">

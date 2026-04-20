@@ -12,6 +12,7 @@ let selectedSize = null;
 const container = document.querySelector("#product-detail") || document.querySelector(".product-page");
 const mainImage = document.getElementById("main-image");
 const titleElement = document.getElementById("product-name");
+const priceElement = document.getElementById("product-price");
 const brandElement = document.getElementById("product-brand");
 const countdownEl = document.getElementById("countdown");
 const addToCartButton = document.getElementById("addToCartBtn");
@@ -60,6 +61,9 @@ const getProductById = async (slug) => {
     titleElement.textContent = product.name;
     document.title = `${product.name} - Sole Search`;
     if (brandElement) brandElement.textContent = product.brand || "";
+
+    if (priceElement) priceElement.textContent = `${product.price} kr`;
+
 
     if (product.dropAt) {
         startCountdown(product.dropAt);
