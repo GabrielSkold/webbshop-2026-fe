@@ -23,8 +23,8 @@ header.innerHTML = `
         <a href="index.html" class="logo">SOLE SEARCH.</a>
         <div class="header-links">
             <a href="products.html?dropStatus=Upcoming">Upcoming</a>
-            <a href="products.html">New in</a>
-            <a href="products.html?dropStatus=Live">All Sneakers</a>
+            <a href="products.html?dropStatus=Live">Live</a>
+            <a href="products.html">All Sneakers</a>
         </div>
         <div class="nav-links">
             <div class="nav-icons">
