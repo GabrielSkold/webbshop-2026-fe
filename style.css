@@ -151,12 +151,12 @@ body {
 
 .brand-links {
   animation: marquee 20s linear infinite;
-
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1.5rem;
   list-style: none;
-  padding: 0;
+  padding-bottom: 3px;
   margin: 0;
   width: 100vw;
 }
@@ -203,8 +203,8 @@ body {
   text-decoration: none;
 }
 
-.hamburgermenu {
-  display: none;
+.hello {
+  display: flex;
 }
 
 .dropdown-allShoes {
@@ -432,6 +432,7 @@ body {
   font-size: 16px;
   font-family: var(--font-medium);
   font-weight: 500;
+  letter-spacing: 0.1rem;
   margin: 0;
 }
 
@@ -474,12 +475,10 @@ body {
 }
 
 .add-to-cart-btn {
-  margin-top: auto;
-  background: var(--color-primary);
-  color: white;
-  border: none;
+  color: var(--color-text-muted);
+  border: 1px solid black;
+  margin: 5px 0;
   padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
@@ -488,6 +487,8 @@ body {
 }
 
 .add-to-cart-btn:hover {
+  border: 1px solid white;
+  color: white;
   background: var(--color-primary-hover);
 }
 
@@ -744,9 +745,17 @@ body {
   margin: 0.5rem;
 }
 
-#save,
-#edit {
-  width: 25vw;
+#profile-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+#profile-h2 {
+  text-align: center;
+}
+
+#save, #edit {
+  width: 200px;
   margin: 0.5rem;
 }
 

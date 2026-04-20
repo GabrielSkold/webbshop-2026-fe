@@ -25,29 +25,6 @@ export async function createOrder(orderData) {
   throw new Error(errorMessage);
 }
 
-export async function getOrdersByUser(userId) {
-  const token = localStorage.getItem("token");
-
-  const url = new URL(`orders/user/${userId}`, getBaseUrl());
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (response.ok) {
-    return response.json();
-  }
-
-  const err = await response.json().catch(() => ({}));
-  console.log("Fel från backend:", err);
-
-  throw new Error(err.message || "Failed to fetch orders");
-}
-
 export async function getOrderById(orderId) {
   const token = localStorage.getItem("token");
 
@@ -72,4 +49,27 @@ export async function getOrderById(orderId) {
     err.errors?.[0]?.message || err.message || "Failed to fetch order";
 
   throw new Error(errorMessage);
+}
+
+export async function getOrdersByUser() {
+  const token = localStorage.getItem("token")
+  const payload = JSON.parse(atob(token.split(".")[1]))
+
+  const url = new URL(`orders/user/${payload.userId}`, getBaseUrl())
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  if(response.ok) {
+    return response.json()
+  }
+
+  const err = await response.json().catch(() => ({}))
+  const errorMessage = err.errors?.[0]?.message || err.message || "Failed to fetch orders"
+  throw new Error(errorMessage)
 }

@@ -25,29 +25,28 @@ header.innerHTML = `
         <div class="nav-links">
             <div class="nav-icons">
                 <a id="cart-link" href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i>(0)</a>
-                <a id="user-link" href="loginpage.html"><img src="/public/user-icon.png" alt="user"></a>
                 <li><a id="wishlist-link" href="wishlist.html"><i class="fa-solid fa-heart"></i></a></li>
-                <a href="admin.html">Admin</a>
-            </div>
-            <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
-        </div>
-    </nav>
-`;
+                <a id="account-link" href="loginpage.html">Log In</a>
+                </nav>
+                `;
 
+//  old login link: <a id="user-link" href="loginpage.html"><img src="/public/user-icon.png" alt="user"></a>
 document.body.append(header);
 
 document.addEventListener("DOMContentLoaded", () => {
-    const userLink = document.getElementById("user-link");
+  const accountLink = document.getElementById("account-link");
+  const token = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token");
-
-    if(token) {
-        userLink.href = "/profilepage.html";
-        const loginLogo = document.querySelector("#user-link")
-        loginLogo.innerHTML = `<i class="fa-solid fa-user"></i>`;
+  if (token) {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]))
+        console.log(payload)
+        const firstName = payload.firstName || "Account"
+        accountLink.textContent = firstName
+        accountLink.href = "/profilepage.html"
+    } catch {
+        accountLink.textContent = "Account"
+        accountLink.href = "/profilepage.html"
     }
+  }
 });
-
-
-
-

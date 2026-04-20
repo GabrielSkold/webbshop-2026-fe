@@ -56,7 +56,7 @@ function createProductCard(product) {
   const element = document.createElement("div");
   element.className = "product-card";
 
-  const imageSection = product.image
+  const imageSection = product.images
     ? `<img class="product-card__image" src="${product.images[0].url}" alt="${product.name}" loading="lazy" />`
     : `<div class="product-card__image-placeholder">🥬</div>`;
 
@@ -64,12 +64,11 @@ function createProductCard(product) {
     ${imageSection}
     <div class="product-card__body">
       <h3>${product.name}</h3>
-      <p class="product-card__price">$${product.price.toFixed(2)}</p>
-      <button class="add-to-cart-btn">Add to Cart</button>
+      <p class="product-card__price">${product.price.toFixed(2)}:-</p>
     </div>
   `;
 
-  element.querySelector(".add-to-cart-btn").addEventListener("click", () => {
+  element.querySelector(".add-to-cart-btn")?.addEventListener("click", () => {
     alert(`Adding ${product.name} to cart\nFunctionality not implemented yet`);
   });
 
