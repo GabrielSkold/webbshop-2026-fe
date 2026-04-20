@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function showProfileView() {
     const orders = await getOrdersByUser();
     const latestOrder = orders.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     )[0];
 
     profilePage.innerHTML = `
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     `
                         : `<p>No orders yet.</p>`
                     }
-                    <a href="/order.html">View all orders</a>
+                    <a href="/orders.html">View all orders</a>
                 </div>
             </div>
         </div>
