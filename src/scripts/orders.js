@@ -1,9 +1,10 @@
 import { getProfile } from "../utils/userApi.js";
 import { getOrdersByUser } from "../utils/ordersApi.js";
 import { updateCartCount } from "../utils/cartUtils.js";
+import { getProducts } from "../utils/productsApi.js";
 
 updateCartCount();
-
+const products = await getProducts();
 const container = document.querySelector("#orders-list");
 
 const init = async () => {
@@ -12,17 +13,13 @@ const init = async () => {
   container.innerHTML = "<p>Loading orders...</p>";
 
   try {
-    // 1. Fetch user
+    // Fetch user
     const profile = await getProfile();
-    console.log("PROFILE:", profile);
-
     const userId = profile.data._id;
 
     // Fetch orders
     const orders = await getOrdersByUser(userId);
-    console.log("ORDERS:", orders);
 
-    // Empty list
     if (orders.length === 0) {
       container.innerHTML = "<p>No orders found</p>";
       return;
@@ -31,36 +28,30 @@ const init = async () => {
     // Render
     container.innerHTML = orders
       .map((order) => {
-        const itemsHTML = order.items
-          .map(
-            (item) => `
-    <div class="order-item">
-      <p>Size: ${item.size}</p>
-      <p>Price: ${item.unitPrice}kr</p>
-    </div>
-  `,
-          )
-          .join("");
-
         const total = order.items.reduce((sum, item) => {
-          return sum + item.unitPrice * item.quantity;
+          return sum + item.unitPrice;
         }, 0);
+        console.log("item.product:", order.items[0].product);
+        console.log("products:", products);
+
+        const product = products.find(
+          (p) => p._id === order.items[0].product._id,
+        );
 
         return `
-        <a class="order-link" href="order-details.html?id=${order._id}">
-            <div class="order-card">
+        <div class="order-content">
+            <div class="orders-left-side">
                 <h3>Order ID: ${order._id}</h3>
+                <img src="${product?.images[0]?.url}"/>
+            </div>
+            <div class="orders-right-side">
                 <p>Status: ${order.orderStatus}</p>
                 <p>Date: ${new Date(order.createdAt).toLocaleString()}</p>
-
-                <div class="order-items">
-                    ${itemsHTML}
-                </div>
-                
                 <p><strong>Total:</strong> ${total}kr</p>
+                <a class="order-link" href="order-details.html?id=${order._id}">View order details</a>
             </div>
-        </a>
-    `;
+        </div>
+        `;
       })
       .join("");
   } catch (error) {
