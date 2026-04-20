@@ -9,143 +9,174 @@ const id = params.get("id");
 
 let selectedSize = null;
 
-const container = document.querySelector("#product-detail");
-const imageElement = container.querySelector(".product-detail__image");
-const imageElement2 = container.querySelector(".product-detail__image2");
-const imageElement3 = container.querySelector(".product-detail__image3");
-const imageElement4 = container.querySelector(".product-detail__image4");
-const titleElement = container.querySelector("h1");
-const priceElement = container.querySelector("p");
-const addToCartButton = container.querySelector("#addToCartBtn");
-const sizeSelect = container.querySelector("#size-selector");
-const productStatus = container.querySelector("#product-status");
-const wishlistButton = container.querySelector("#wishlistBtn");
+const container = document.querySelector("#product-detail") || document.querySelector(".product-page");
+const mainImage = document.getElementById("main-image");
+const titleElement = document.getElementById("product-name");
+const brandElement = document.getElementById("product-brand");
+const countdownEl = document.getElementById("countdown");
+const addToCartButton = document.getElementById("addToCartBtn");
+const sizeSelect = document.getElementById("size-selector");
+const colorSelector = document.getElementById("color-selector");
+const wishlistButton = document.getElementById("wishlistBtn");
+const productDesc = document.getElementById("product-desc");
+const productMeta = document.getElementById("product-meta");
+const imgNavUp = document.querySelector(".img-nav--up");
+const imgNavDown = document.querySelector(".img-nav--down");
+
+let currentImageIndex = 0;
+let productImages = [];
+
+function setImage(index) {
+    if (!productImages.length) return;
+    currentImageIndex = (index + productImages.length) % productImages.length;
+    mainImage.src = productImages[currentImageIndex].url;
+}
+
+function startCountdown(dropAt) {
+    const update = () => {
+        const diff = new Date(dropAt) - new Date();
+        if (diff <= 0) {
+            countdownEl.textContent = "Live now!";
+            return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        countdownEl.textContent = `Dropping: ${d.toString().padStart(2,"0")}d : ${h.toString().padStart(2,"0")}h : ${m.toString().padStart(2,"0")}m : ${s.toString().padStart(2,"0")}s`;
+    };
+    update();
+    setInterval(update, 1000);
+}
 
 const getProductById = async (id) => {
-  const products = await getProducts();
-  const product = products.find((product) => product._id === id);
+    const products = await getProducts();
+    const product = products.find((p) => p._id === id);
 
-  if (!product) {
-    container.innerHTML = "<p>Product not found</p>";
-    return;
-  }
+    if (!product) {
+        document.querySelector(".product-page").innerHTML = "<p>Product not found</p>";
+        return;
+    }
 
-  imageElement.innerHTML = `<img src="${product.images[0].url}" alt="${product.name}" />`;
-  imageElement2.innerHTML = `<img src="${product.images[1].url}" alt="${product.name}" />`;
-  imageElement3.innerHTML = `<img src="${product.images[2].url}" alt="${product.name}" />`;
-  imageElement4.innerHTML = `<img src="${product.images[3].url}" alt="${product.name}" />`;
-  titleElement.textContent = product.name;
-  priceElement.textContent = `${product.price}kr`;
+    productImages = product.images || [];
+    setImage(0);
+    mainImage.alt = product.name;
 
-  // Initial state innan size är vald
-  addToCartButton.disabled = true;
-  addToCartButton.textContent = "Select size";
-  productStatus.textContent = "Choose a size";
+    titleElement.textContent = product.name;
+    if (brandElement) brandElement.textContent = product.brand || "";
 
-  // Rendera size-knappar
-  sizeSelect.innerHTML = product.sizes
-    .map(
-      (size) => `
-        <button data-size="${size.size}">
-          ${size.size}
-        </button>
-      `,
-    )
-    .join("");
+    if (product.dropAt) {
+        startCountdown(product.dropAt);
+    } else if (product.dropStatus) {
+        countdownEl.textContent = product.dropStatus;
+    }
 
-  const sizeButtons = sizeSelect.querySelectorAll("button");
+    if (productDesc && product.description) {
+        productDesc.textContent = product.description;
+    }
 
-  sizeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // removes active from all buttons
-      sizeButtons.forEach((btn) => btn.classList.remove("active"));
+    if (productMeta) {
+        productMeta.innerHTML = [
+            product.articleNo ? `<span>Article no: ${product.articleNo}</span>` : "",
+            product.gender ? `<span>Gender: ${product.gender}</span>` : "",
+            product.colorName ? `<span>Color: ${product.colorName}</span>` : "",
+        ].join("");
+    }
 
-      // adds active state if button is clicked
-      button.classList.add("active");
+    imgNavUp.addEventListener("click", () => setImage(currentImageIndex - 1));
+    imgNavDown.addEventListener("click", () => setImage(currentImageIndex + 1));
 
-      // Saves selected size
-      selectedSize = button.dataset.size;
-      console.log("Selected size:", selectedSize);
+    // Size buttons
+    addToCartButton.disabled = true;
+    addToCartButton.textContent = "SELECT SIZE";
 
-      // finds the right selected size
-      const selectedSizeObject = product.sizes.find(
-        (size) => String(size.size) === selectedSize,
-      );
+    sizeSelect.innerHTML = product.sizes
+        .map((size) => `<button data-size="${size.size}">${size.size}</button>`)
+        .join("");
 
-      console.log("Selected size object:", selectedSizeObject);
+    const sizeButtons = sizeSelect.querySelectorAll("button");
+    sizeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            sizeButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+            selectedSize = button.dataset.size;
 
-      // updates UI depending on stock
-      if (selectedSizeObject.stock > 0) {
-        productStatus.textContent = `In stock: ${selectedSizeObject.stock} left`;
-        addToCartButton.disabled = false;
-        addToCartButton.textContent = "Add to cart";
-      } else {
-        productStatus.textContent = "Out of stock";
-        addToCartButton.disabled = true;
-        addToCartButton.textContent = "Out of stock";
-      }
+            const selectedSizeObject = product.sizes.find(
+                (s) => String(s.size) === selectedSize,
+            );
+
+            if (selectedSizeObject.stock > 0) {
+                addToCartButton.disabled = false;
+                addToCartButton.textContent = "ADD TO CART";
+            } else {
+                addToCartButton.disabled = true;
+                addToCartButton.textContent = "OUT OF STOCK";
+            }
+        });
     });
-  });
 
-  addToCartButton.addEventListener("click", () => {
-    if (!selectedSize) return;
-    console.log(`Added ${product.name}, size ${selectedSize} to the cart`);
+    // Color buttons
+    if (colorSelector && product.colors?.length) {
+        colorSelector.innerHTML = product.colors
+            .map((c) => `<button data-color="${c.name}">${c.name}</button>`)
+            .join("");
 
-    const item = {
-      productId: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      size: selectedSize,
-      quantity: 1,
-    };
-
-    let cart = getCart();
-    if (cart === null) {
-      cart = [];
+        colorSelector.querySelectorAll("button").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                colorSelector.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+            });
+        });
     }
 
-    const existingItem = cart.find(
-      (cartItem) =>
-        cartItem.productId === item.productId && cartItem.size === item.size,
-    );
+    addToCartButton.addEventListener("click", () => {
+        if (!selectedSize) return;
 
-    if (existingItem) {
-      existingItem.quantity++;
-    } else {
-      cart.push(item);
-    }
+        const item = {
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: productImages[0]?.url,
+            size: selectedSize,
+            quantity: 1,
+        };
 
-    saveCart(cart);
-    console.log(cart);
-    updateCartCount();
-  });
+        let cart = getCart() || [];
+        const existingItem = cart.find(
+            (cartItem) => cartItem.productId === item.productId && cartItem.size === item.size,
+        );
 
-  wishlistButton.addEventListener("click", () => {
-    const item = {
-        productId: product._id,
-        name: product.name,
-        price: product.price,
-        image: product.images[0].url,
-        dropAt: product.dropAt,
-    };
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push(item);
+        }
 
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    
-    const exists = wishlist.find(w => w.productId === product._id);
-    
-    if(exists) {
-        alert("Already in wishlist!");
-    } else {
-        wishlist.push(item);
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        updateWishlistCount();
-        alert("Added to wishlist!");
-    }
-  });
+        saveCart(cart);
+        updateCartCount();
+    });
 
-  console.log("product object:", product);
-  console.log("product.stock:", product.stock);
-  console.log("sizes:", product.sizes);
+    wishlistButton.addEventListener("click", () => {
+        const item = {
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            image: productImages[0]?.url,
+            dropAt: product.dropAt,
+        };
+
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        const exists = wishlist.find((w) => w.productId === product._id);
+
+        if (exists) {
+            alert("Already in wishlist!");
+        } else {
+            wishlist.push(item);
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            updateWishlistCount();
+            alert("Added to wishlist!");
+        }
+    });
 };
+
 getProductById(id);

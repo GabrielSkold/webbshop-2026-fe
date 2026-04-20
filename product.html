@@ -5,29 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
     <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <header class="site-header">
       <script src="./src/scripts/header.js"></script>
     </header>
-    <main class="main-content">
-        <section id="product-detail">
-          <div class="product-detail__info">
-            <h1>Loading...</h1>
-            <div class="product-detail__image"></div>
-            <div class="product-detail__image2"></div>
-            <div class="product-detail__image3"></div>
-            <div class="product-detail__image4"></div>
-            <p class="product-price"></p>
-            <div id="product-status"></div>
-            <div id="countdown"></div>
-            <div id="size-selector"></div>
-            <button id="addToCartBtn">Add to cart</button>
-            <button id="wishlistBtn">Add to wishlist</button>
+    <main class="product-page">
+        <div class="product-page__image-panel">
+            <button class="img-nav img-nav--up">&#9651;</button>
+            <div class="product-main-image">
+                <img id="main-image" src="" alt="" />
             </div>
-        </section>
+            <button class="img-nav img-nav--down">&#9661;</button>
+        </div>
+        <div class="product-page__info-panel">
+            <p class="product-brand" id="product-brand"></p>
+            <h1 id="product-name">Loading...</h1>
+            <p id="countdown" class="product-countdown"></p>
+            <div class="product-sizes">
+                <div class="sizes-header">
+                    <span>SIZES</span>
+                    <span class="divider">|</span>
+                    <span>SIZE CHART</span>
+                </div>
+                <div id="size-selector"></div>
+            </div>
+            <div class="product-colors">
+                <p>COLOR</p>
+                <div id="color-selector"></div>
+            </div>
+            <div class="product-actions">
+                <button id="wishlistBtn">WISHLIST</button>
+                <button id="addToCartBtn">ADD TO CART</button>
+            </div>
+            <div class="product-description">
+                <p class="description-title">DESCRIPTION</p>
+                <p id="product-desc"></p>
+                <div id="product-meta"></div>
+            </div>
+        </div>
     </main>
     <footer class="site-footer">
       <script src="./src/scripts/footer.js"></script>
