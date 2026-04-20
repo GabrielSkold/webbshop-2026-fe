@@ -34,11 +34,7 @@ function setImage(index) {
 
 function startCountdown(dropAt) {
     const update = () => {
-        const diff = new Date(dropAt) - new Date();
-        if (diff <= 0) {
-            countdownEl.textContent = "Live now!";
-            return;
-        }
+        const diff = Math.max(0, new Date(dropAt) - new Date());
         const d = Math.floor(diff / 86400000);
         const h = Math.floor((diff % 86400000) / 3600000);
         const m = Math.floor((diff % 3600000) / 60000);
@@ -118,15 +114,8 @@ const getProductById = async (id) => {
     // Color buttons
     if (colorSelector && product.colors?.length) {
         colorSelector.innerHTML = product.colors
-            .map((c) => `<button data-color="${c.name}">${c.name}</button>`)
+            .map((c) => `<span>${c.name}</span>`)
             .join("");
-
-        colorSelector.querySelectorAll("button").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                colorSelector.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
-                btn.classList.add("active");
-            });
-        });
     }
 
     addToCartButton.addEventListener("click", () => {
