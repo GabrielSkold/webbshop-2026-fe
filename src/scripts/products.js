@@ -28,7 +28,7 @@ const init = async () => {
                           <p class="products-card-drop-status">${product.dropStatus}</p>
                       </div>
                       <div class="product-card__body">
-                            <h3 class="products-card__name>${product.name}</h3>
+                            <h3 class="product-card__name">${product.name}</h3>
                             <p class="product-card__price">${product.price}:-</p>
                       </div>
                   </article>
