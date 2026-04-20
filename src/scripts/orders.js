@@ -47,16 +47,19 @@ const init = async () => {
         }, 0);
 
         return `
-        <div class="order-card">
-        <h3>Order ID: ${order._id}</h3>
-        <p>Status: ${order.orderStatus}</p>
-        <p>Date: ${new Date(order.createdAt).toLocaleString()}</p>
+        <a class="order-link" href="order-details.html?id=${order._id}">
+            <div class="order-card">
+                <h3>Order ID: ${order._id}</h3>
+                <p>Status: ${order.orderStatus}</p>
+                <p>Date: ${new Date(order.createdAt).toLocaleString()}</p>
 
-        <div class="order-items">
-            ${itemsHTML}
-        </div>
-        <p><strong>Total:</strong> ${total}kr</p>
-        </div>
+                <div class="order-items">
+                    ${itemsHTML}
+                </div>
+                
+                <p><strong>Total:</strong> ${total}kr</p>
+            </div>
+        </a>
     `;
       })
       .join("");
