@@ -200,8 +200,8 @@ body {
   text-decoration: none;
 }
 
-.hamburgermenu {
-  display: none;
+.hello {
+  display: flex;
 }
 
 .dropdown-allShoes {
@@ -727,8 +727,17 @@ body {
   margin: 0.5rem;
 }
 
+#profile-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+#profile-h2 {
+  text-align: center;
+}
+
 #save, #edit {
-  width: 25vw;
+  width: 200px;
   margin: 0.5rem;
 }
 
