@@ -29,9 +29,11 @@ const init = async () => {
                       </div>
                       <div class="product-card__body">
                             <h3>${product.name}</h3>
-                            <p class="product-card__price">$${product.price}</p>
-                      </div>
-                  </article>
+                            <p class="product-card__price">${product.price} kr</p>
+                            <p>${product.dropStatus}</p>
+                            <p>${product.dropAt}</p>
+                        </div>
+                    </article>
                 </a>
             `,
         )
