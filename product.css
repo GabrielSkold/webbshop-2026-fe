@@ -56,6 +56,11 @@ body {
 .img-nav--down img {
     rotate: 180deg;
     filter: drop-shadow(-3px -3px 0px black);
+    margin-bottom: 50px;
+}
+
+.img-nav--up img {
+    margin-top: 50px;
 }
 
 .img-nav:hover {
@@ -64,15 +69,17 @@ body {
 
 /* RIGHT: info panel */
 .product-page__info-panel {
+    background-color: white;
     flex: 1 1 0;
-    border: 1.5px solid #222;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    padding: 40px;
+    padding: 50px;
     margin-top: 50px;
     margin-bottom: 50px;
     box-sizing: border-box;
+    filter: drop-shadow(4px 4px 0px #000000);
 }
 
 .product-brand {
