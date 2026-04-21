@@ -1,5 +1,6 @@
 import { updateCartCount } from "../utils/cartUtils.js";
 import { requireAuth } from "../utils/auth.js";
+import { showToast } from "../utils/toast.js";
 
 export const updateWishlistCount = () => {
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -68,6 +69,7 @@ const renderWishlistItems = () => {
 
       localStorage.setItem("cart", JSON.stringify(cart));
       updateCartCount();
+      showToast(`Added to cart: ${item.name}`);
     });
   });
 

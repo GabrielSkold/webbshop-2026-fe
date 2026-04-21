@@ -2,6 +2,7 @@ import { getProducts, getProductBySlug } from "../utils/productsApi.js";
 import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
 import { updateWishlistCount } from "./wishlist.js";
 import { requireAuth } from "../utils/auth.js";
+import { showToast } from "../utils/toast.js";
 updateWishlistCount();
 updateCartCount();
 
@@ -157,6 +158,7 @@ const getProductById = async (slug) => {
 
     saveCart(cart);
     updateCartCount();
+    showToast(`Added to cart: ${product.name}`);
   });
 
   wishlistButton.addEventListener("click", () => {
@@ -180,7 +182,7 @@ const getProductById = async (slug) => {
       wishlist.push(item);
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
       updateWishlistCount();
-      alert("Added to wishlist!");
+      showToast(`Added to wishlist: ${item.name}`);
     }
   });
 };
