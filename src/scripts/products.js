@@ -23,7 +23,7 @@ const init = async () => {
           (product) => `
                 <a class="product-href" href="product.html?slug=${product.slug}">
                     <article class="product-card">
-                      <div class="product-card__image" 
+                      <div class="product-card__image"
                         style="background-image: url('${product.images[0]?.url}')">
                           <p class="products-card-drop-status">${product.dropStatus}</p>
                           <div>
