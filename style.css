@@ -52,7 +52,6 @@ body {
   line-height: 1.5;
   display: flex;
   flex-direction: column;
-
 }
 
 /* Header */
@@ -754,7 +753,8 @@ body {
 #profilePage {
   display: flex;
   flex-direction: column;
-  padding: 21px;
+  padding: 21px 40px;
+  border: none;
 }
 
 #profilePage input {
@@ -765,18 +765,26 @@ body {
 #profile-wrapper {
   display: flex;
   justify-content: space-between;
+  height: 360px;
 }
 
-#profile-info, #order-info {
+#profile-info,
+#order-info {
   display: flex;
   flex-direction: column;
   width: 320px;
-  height: 320px;
+  height: 360px;
   justify-content: space-between;
+}
+
+#order-info {
+  align-items: center;
 }
 
 #profile-h2 {
   text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
 }
 
 #save,
@@ -1050,4 +1058,3 @@ body {
   align-items: center;
   text-align: center;
 }
-
