@@ -35,7 +35,7 @@ const init = async () => {
         console.log("products:", products);
 
         const product = products.find(
-          (p) => p._id === order.items[0].product._id,
+          (p) => order.items[0].product && p._id === order.items[0].product._id,
         );
 
         return `
