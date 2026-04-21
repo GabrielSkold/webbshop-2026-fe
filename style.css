@@ -485,9 +485,9 @@ body {
 #profilePage {
   background: var(--color-surface);
   padding: 2rem;
-  border-radius: var(--radius-md);
+  /* border-radius: var(--radius-md); */
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
+  /* border: 1px solid var(--color-border); */
 }
 
 .form-group {
@@ -740,7 +740,7 @@ body {
   justify-content: space-between;
 }
 
-#latest-order {
+#latest-order, #login-container {
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
@@ -961,7 +961,7 @@ body {
   background-color: #222;
 }
 
-.news-main {
+.news-main, .login-main {
   flex: 1;
   display: flex;
   flex-direction: column;
