@@ -973,7 +973,7 @@ body {
 }
 
 /* Cart <a> tag styling */
-.checkout-page-link {
+.btn-primary {
   display: block;
   width: 100%;
   max-width: 400px;
@@ -988,10 +988,11 @@ body {
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.05em;
+  border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.checkout-page-link:hover {
+.btn-primary:hover {
   background-color: #222;
 }
