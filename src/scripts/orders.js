@@ -29,7 +29,7 @@ const init = async () => {
     container.innerHTML = orders
       .map((order) => {
         const total = order.items.reduce((sum, item) => {
-          return sum + item.unitPrice;
+          return sum + item.unitPrice * item.quantity;
         }, 0);
         console.log("item.product:", order.items[0].product);
         console.log("products:", products);
