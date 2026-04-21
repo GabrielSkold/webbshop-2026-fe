@@ -59,29 +59,44 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p>Postal code: ${user.data.location.postCode}</p>
                     <button id="edit">Edit information</button>
                 </div>
+
+                ${
+                  user.data.role === "admin"
+                    ? `
+        <div id="admin-panel">
+            <h2 id="profile-h2">Admin – Product Management</h2>
+            <p>Create, update, and remove products through our admin panel.</p>
+            <button id="edit" onclick="window.location.href='/admin.html'">To the admin page</button>
+        </div>
+    `
+                    : ""
+                }
+
                 <div id="order-info">
                     <h2 id="profile-h2">Your most recent order:</h2>
                     ${
                       latestOrder
                         ? `
-                        <p>Order ID: ${latestOrder._id}</p>
-                        <p>Order status: ${latestOrder.orderStatus}</p>
-                        <p>Date: ${new Date(latestOrder.createdAt).toLocaleDateString()}</p>
-                        <p>Items:</p>
-                        <ul>
+                      <div id="latest-order">
+                        <p><b>Order ID:</b> ${latestOrder._id}</p>
+                        <p><b>Order status:</b> ${latestOrder.orderStatus}</p>
+                        <p><b>Date:</b> ${new Date(latestOrder.createdAt).toLocaleDateString()}</p>
+                        <p><b>Items:</b></p>
+                        <ul style="list-style: none; margin: 8px; padding: 0;">
                             ${latestOrder.items
                               .map(
                                 (item) => `
-                                <li>${item.product.name} x${item.quantity} - ${item.unitPrice}:-</li>
+                                <li style="padding-left: 4px;">- ${item.product.name} x${item.quantity} - ${item.unitPrice}:-</li>
                             `,
                               )
                               .join("")}
                         </ul>
-                        <p>Total: ${latestOrder.orderTotal}:-</p>
+                        <p><b>Total:</b> ${latestOrder.orderTotal}:-</p>
+                      </div>
                     `
                         : `<p>No orders yet.</p>`
                     }
-                    <a href="/orders.html">View all orders</a>
+                    <button id="edit" onclick="window.location.href='/orders.html'">View all orders</button>
                 </div>
             </div>
         </div>
