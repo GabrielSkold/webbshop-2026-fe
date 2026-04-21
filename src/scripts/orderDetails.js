@@ -37,7 +37,7 @@ const init = async () => {
 
         return `
     <div class="order-item">
-      <h4>${product?.name || "Unknown product"}</h4>
+      <h4>${item.quantity} x ${product?.name || "Unknown product"}</h4>
       <img src="${product?.images[0]?.url}" />
       <p>Size: ${item.size}</p>
       <p>Price: ${item.unitPrice}kr</p>
@@ -47,7 +47,7 @@ const init = async () => {
       .join("");
 
     const total = order.items.reduce((sum, item) => {
-      return sum + item.unitPrice;
+      return sum + item.unitPrice * item.quantity;
     }, 0);
 
     container.innerHTML = `
