@@ -1,9 +1,11 @@
 /* product page styles */
 body {
+    display: flex;
     font-family: var(--font-body);
 }
 
 .product-page {
+    flex: 1;
     max-width: 1920px;
     margin: 0 auto;
     padding: 0 60px;
