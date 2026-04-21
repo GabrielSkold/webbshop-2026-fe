@@ -2,6 +2,12 @@
 body {
     display: flex;
     font-family: var(--font-body);
+    min-height: 100vh; 
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
 }
 
 .product-page {
@@ -11,8 +17,9 @@ body {
     padding: 0 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: unset;
     gap: 50px;
+
+    min-height: calc(100vh - 85px); /* hur mycket som syns */
 }
 
 /* LEFT: image panel */
