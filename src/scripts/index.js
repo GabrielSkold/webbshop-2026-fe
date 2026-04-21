@@ -39,7 +39,13 @@ function renderGrid(products, container) {
 async function init() {
   try {
     const products = await getProducts();
-    const upcoming = products.filter((p) => p.dropStatus === "Upcoming");
+    const upcoming = products
+      .filter((p) => p.dropStatus === "Upcoming")
+      .sort((a, b) => {
+        const dateA = new Date(a.dropAt?.$date ?? a.dropAt);
+        const dateB = new Date(b.dropAt?.$date ?? b.dropAt);
+        return dateA - dateB;
+      });
     const live = products.filter((p) => p.dropStatus === "Live");
 
     renderGrid(upcoming, upcomingContainer);
