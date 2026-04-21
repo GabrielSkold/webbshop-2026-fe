@@ -64,6 +64,8 @@ placeOrderButton?.addEventListener("click", async () => {
     items: cart.map((item) => ({
       product: item.productId,
       size: item.size,
+      quantity: item.quantity,
+      unitPrice: item.price,
     })),
   };
 
