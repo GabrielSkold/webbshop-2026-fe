@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sole Search</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
@@ -20,10 +21,23 @@
     </section>
 
     <!-- MAIN CONTENT -->
+    <div class="index-section-header">
+      <h2 class="products-rubric">LIVE NOW</h2>
+    </div>
     <main class="main-content">
-      <h1>Featured products</h1>
-      <div id="products"></div>
+      <div id="live-products" class="index-products-grid"></div>
     </main>
+
+    <div class="index-section-header">
+      <h2 class="products-rubric">UPCOMING DROPS</h2>
+    </div>
+    <main class="main-content">
+      <div id="upcoming-products" class="index-products-grid"></div>
+    </main>
+
+    <div class="index-all-btn-wrapper">
+      <a href="products.html" class="index-all-btn">ALL SNEAKERS</a>
+    </div>
 
     <!-- FOOTER -->
     <footer class="site-footer">

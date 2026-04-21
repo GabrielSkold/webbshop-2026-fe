@@ -275,85 +275,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Hero section (homepage) - full width, non-contained */
-.hero {
-  width: 100%;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: center;
-  padding: 2rem 2rem;
-  background-size: cover;
-  background-position: center;
-  color: #fff;
-}
-
-.heroTimer {
-  margin: 0;
-  font-size: 2rem;
-  color: rgba(255, 255, 255, 0.95);
-  filter: drop-shadow(2px 2px black);
-  letter-spacing: 4px;
-  word-spacing: 8px;
-}
-
-.arrowSection {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 16vw;
-  padding-bottom: 4rem;
-}
-
-.leftArrow,
-.rightArrow {
-  background: none;
-  border: none;
-}
-
-.leftArrow i,
-.rightArrow i {
-  color: white;
-  filter: drop-shadow(2px 2px black);
-  font-size: 2rem;
-}
-
-.leftArrow i:hover,
-.rightArrow i:hover {
-  cursor: pointer;
-  color: var(--color-primary-hover);
-}
-
-.infoSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  filter: drop-shadow(2px 2px black);
-}
-
-.infoSection p {
-  margin-bottom: 0px;
-  margin-top: 5px;
-}
-
-.infoSection h2 {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
-
-.heroShop {
-  border-radius: 20px;
-  width: 65px;
-  border-width: 1px;
-}
-
-.heroShop:hover {
-  cursor: pointer;
-  background-color: var(--color-primary-hover);
-}
 
 /* Products grid */
 #products {
@@ -451,11 +372,12 @@ body {
 }
 
 .products-rubric {
-  font-family: var(--font-medium);
+  font-family: var(--font-body);
   font-size: 20px;
-  color: var(--color-text);
+  color: black;
   letter-spacing: 10%;
 }
+
 
 .filter-btn {
   height: 35px;
@@ -563,9 +485,9 @@ body {
 #profilePage {
   background: var(--color-surface);
   padding: 2rem;
-  border-radius: var(--radius-md);
+  /* border-radius: var(--radius-md); */
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
+  /* border: 1px solid var(--color-border); */
 }
 
 .form-group {
@@ -818,7 +740,7 @@ body {
   justify-content: space-between;
 }
 
-#latest-order {
+#latest-order, #login-container {
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
@@ -1039,7 +961,7 @@ body {
   background-color: #222;
 }
 
-.news-main {
+.news-main, .login-main {
   flex: 1;
   display: flex;
   flex-direction: column;
