@@ -438,7 +438,6 @@ body {
   margin: 0;
 }
 
-
 .product-card__price {
   color: black;
   font-size: 16px;
@@ -765,7 +764,8 @@ body {
   text-align: center;
 }
 
-#save, #edit {
+#save,
+#edit {
   width: 200px;
   margin: 0.5rem;
 }
@@ -970,4 +970,28 @@ body {
 
 .order-item p {
   margin: 0;
+}
+
+/* Cart <a> tag styling */
+.checkout-page-link {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+  background-color: black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.checkout-page-link:hover {
+  background-color: #222;
 }
