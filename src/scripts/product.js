@@ -68,8 +68,12 @@ const getProductById = async (slug) => {
 
   if (priceElement) priceElement.textContent = `${product.price} kr`;
 
-  if (product.dropAt) {
+  if (product.dropStatus === "Upcoming" && product.dropAt) {
     startCountdown(product.dropAt);
+  } else if (product.dropStatus === "DropEnd" && product.dropEnd) {
+    const rawDate = product.dropEnd?.$date ?? product.dropEnd;
+    const date = new Date(rawDate).toLocaleDateString("sv-SE");
+    countdownEl.textContent = `Drop Ended (${date})`;
   } else if (product.dropStatus) {
     countdownEl.textContent = product.dropStatus;
   }
