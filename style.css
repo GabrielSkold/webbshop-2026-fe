@@ -259,7 +259,9 @@ body {
   width: 1920px;
   padding-left: 60px;
   padding-right: 60px;
+  padding-bottom: 40px;
   margin: 0 auto;
+  flex: 1;
 }
 
 .main-content h1 {
@@ -625,7 +627,7 @@ body {
 /* Footer */
 .site-footer {
   background: black;
-  padding: 1.5rem 2rem;
+  padding: 0.8rem 2rem;
   border-top: 1px solid var(--color-border);
 }
 
@@ -749,6 +751,7 @@ body {
 #profilePage {
   display: flex;
   flex-direction: column;
+  padding: 21px;
 }
 
 #profilePage input {
@@ -758,6 +761,14 @@ body {
 
 #profile-wrapper {
   display: flex;
+  justify-content: space-between;
+}
+
+#profile-info, #order-info {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 320px;
   justify-content: space-between;
 }
 
@@ -784,6 +795,25 @@ body {
 #edit:hover,
 #back:hover {
   cursor: pointer;
+}
+
+#admin-panel {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+}
+
+#latest-order {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem;
+  gap: 1px;
+  border: 1px solid black;
+  box-shadow: 3px 3px black;
+  font-size: small;
 }
 
 /* wishlist */
@@ -971,3 +1001,30 @@ body {
 .order-item p {
   margin: 0;
 }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#news-h1 {
+  text-align: center;
+}
+
+#news-box {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
