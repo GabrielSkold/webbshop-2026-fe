@@ -7,6 +7,14 @@ updateCartCount();
 const upcomingContainer = document.getElementById("upcoming-products");
 const liveContainer = document.getElementById("live-products");
 
+function getStatusLabel(product) {
+  if (product.dropStatus === "Upcoming" && product.dropAt) {
+    const raw = product.dropAt?.$date ?? product.dropAt;
+    return new Date(raw).toLocaleDateString("sv-SE");
+  }
+  return product.dropStatus;
+}
+
 function renderGrid(products, container) {
   container.innerHTML = products
     .map(
@@ -15,7 +23,7 @@ function renderGrid(products, container) {
           <article class="product-card">
             <div class="product-card__image"
               style="background-image: url('${product.images[0]?.url}')">
-                <p class="products-card-drop-status">${product.dropStatus}</p>
+                <p class="products-card-drop-status">${getStatusLabel(product)}</p>
                 <div>
                   <h3 class="product-card__name">${product.name}</h3>
                   <p class="product-card__price">${product.price}:-</p>
