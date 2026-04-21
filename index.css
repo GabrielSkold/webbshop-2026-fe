@@ -80,17 +80,13 @@
 
 /* Index product sections */
 .index-section-header {
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-  padding: 32px 60px;
-  margin-top: 48px;
-  margin-bottom: 32px;
+  border-top: 2px solid #E3E3E3;
+  border-bottom: 2px solid #E3E3E3;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 36px 60px;
   background-color: var(--color-bg-alt);
   text-align: center;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
 }
 
 .index-section-header .products-rubric {
