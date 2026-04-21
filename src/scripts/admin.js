@@ -1,5 +1,12 @@
 import { getProducts, createProduct } from "../utils/productsApi.js";
 
+const token = localStorage.getItem("token")
+const payload = token ? JSON.parse(atob(token.split(".")[1])) : null
+
+if (!payload || payload.role !== "admin") {
+  window.location.replace("/index.html")
+}
+
 const form = document.getElementById("createProductForm");
 const tbody = document.getElementById("productsTableBody");
 const nameInput = document.getElementById("name");
