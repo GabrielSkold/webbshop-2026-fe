@@ -37,6 +37,8 @@ function setImage(index) {
   mainImage.src = productImages[currentImageIndex].url;
 }
 
+let contdownInterval = null
+
 function startCountdown(dropAt) {
   const update = () => {
     const diff = Math.max(0, new Date(dropAt) - new Date());
@@ -47,7 +49,29 @@ function startCountdown(dropAt) {
     countdownEl.textContent = `Dropping: ${d.toString().padStart(2, "0")}d : ${h.toString().padStart(2, "0")}h : ${m.toString().padStart(2, "0")}m : ${s.toString().padStart(2, "0")}s`;
   };
   update();
-  setInterval(update, 1000);
+  contdownInterval = setInterval(update, 1000);
+}
+
+function enableSizeButtons(sizes, sizeButtons) {
+  sizeButtons.forEach((btn) => {
+    btn.disabled = false;
+    btn.classList.remove("out-of-stock");
+    btn.addEventListener("click", () => {
+      sizeButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedSize = btn.dataset.size;
+
+      const selectedSizeObject = sizes.find(
+        (s) => String(s.size) === selectedSize
+      );
+
+      addToCartButton.disabled = selectedSizeObject.stock === 0;
+      addToCartButton.textContent =
+        selectedSizeObject.stock > 0 ? "ADD TO CART" : "OUT OF STOCK";
+    });
+  });
+  addToCartButton.disabled = true;
+  addToCartButton.textContent = "SELECT SIZE";
 }
 
 const getProductById = async (slug) => {
@@ -66,7 +90,6 @@ const getProductById = async (slug) => {
   titleElement.textContent = product.name;
   document.title = `${product.name} - Sole Search`;
   if (brandElement) brandElement.textContent = product.brand || "";
-
   if (priceElement) priceElement.textContent = `${product.price} kr`;
 
   if (product.dropStatus === "Upcoming" && product.dropAt) {
@@ -94,36 +117,36 @@ const getProductById = async (slug) => {
   imgNavUp.addEventListener("click", () => setImage(currentImageIndex - 1));
   imgNavDown.addEventListener("click", () => setImage(currentImageIndex + 1));
 
-  // Size buttons
-  addToCartButton.disabled = true;
-  addToCartButton.textContent = "SELECT SIZE";
-
   sizeSelect.innerHTML = product.sizes
-    .map((size) => `<button data-size="${size.size}">${size.size}</button>`)
+    .map((size) => {
+      const cls = size.stock === 0 ? ' class="out-of-stock"' : "";
+      return `<button data-size="${size.size}"${cls}>${size.size}</button>`;
+    })
     .join("");
 
   const sizeButtons = sizeSelect.querySelectorAll("button");
-  sizeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      sizeButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      selectedSize = button.dataset.size;
 
-      const selectedSizeObject = product.sizes.find(
-        (s) => String(s.size) === selectedSize,
-      );
-
-      if (selectedSizeObject.stock > 0) {
-        addToCartButton.disabled = false;
-        addToCartButton.textContent = "ADD TO CART";
-      } else {
-        addToCartButton.disabled = true;
-        addToCartButton.textContent = "OUT OF STOCK";
-      }
+  if (product.dropStatus === "Upcoming") {
+    sizeButtons.forEach((btn) => {
+      btn.disabled = true;
+      btn.classList.add("out-of-stock");
     });
-  });
+    addToCartButton.disabled = true;
+    addToCartButton.textContent = "UPCOMING";
 
-  // Color buttons
+    const poll = setInterval(async () => {
+      const updated = await getProductBySlug(slug);
+      if (updated.dropStatus !== "Upcoming") {
+        clearInterval(poll);
+        clearInterval(contdownInterval)
+        countdownEl.textContent = "Live";
+        enableSizeButtons(updated.sizes, sizeButtons);
+      }
+    }, 10000);
+  } else {
+    enableSizeButtons(product.sizes, sizeButtons);
+  }
+
   if (colorSelector && product.colors?.length) {
     colorSelector.innerHTML = product.colors
       .map((c) => `<span>${c.name}</span>`)
@@ -170,7 +193,11 @@ const getProductById = async (slug) => {
       name: product.name,
       price: product.price,
       image: productImages[0]?.url,
-      dropAt: product.dropAt,
+      dropStatus: product.dropStatus,
+      dropAt: product.dropAt
+        ? new Date(product.dropAt).toISOString().split("T")[0]
+        : null,
+      slug: product.slug,
     };
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];

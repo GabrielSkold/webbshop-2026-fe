@@ -187,7 +187,8 @@ body {
 }
 
 .nav-links a:hover,
-.brand-links a:hover {
+.brand-links a:hover,
+.header-links a:hover {
   color: var(--color-primary-hover);
 }
 
@@ -206,7 +207,9 @@ body {
 }
 
 .hello {
+  margin: 2rem auto;
   display: flex;
+  border-bottom: 1px solid black;
 }
 
 .dropdown-allShoes {
@@ -390,6 +393,11 @@ body {
   letter-spacing: 10%;
 }
 
+.filter-btn:hover {
+  cursor: pointer;
+  background: #d6d5d5;
+}
+
 .filter-dropdown {
   width: 320px;
   padding: 25px;
@@ -466,6 +474,29 @@ body {
 }
 
 /* Register / Login forms */
+
+.register-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.login-main h1,
+.register-main h1{
+  font-family: var(--font-medium);
+}
+
+.login-main a {
+  color: black;
+}
+
+.login-wrapper {
+  max-width: 420px;
+  margin-bottom: 100px;
+}
+
 .login-main h1,
 .register-main h1,
 .forgot-main h1 {
@@ -473,7 +504,6 @@ body {
 }
 
 .register-wrapper,
-.login-wrapper,
 .forgot-wrapper {
   max-width: 420px;
   margin: 0 auto;
@@ -503,15 +533,15 @@ body {
 
 .form-group label {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-text);
 }
 
 .form-group input,
 #profilePage input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
+  border: 1px solid black;
   font-family: var(--font-body);
   font-size: 1rem;
   transition:
@@ -604,8 +634,8 @@ body {
 
 /* Profilsida */
 .settingsContainer {
+  max-width: 1920px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 1.5rem 0 1.5rem;
 }
@@ -651,6 +681,18 @@ body {
   background: #f0f0f0;
 }
 
+.profilepage-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 1920px;
+  margin: 0 auto;
+  min-height: calc(100vh - 265px);
+}
+
 .profileContainer {
   display: flex;
   flex-direction: column;
@@ -675,7 +717,6 @@ body {
 #profilePage {
   display: flex;
   flex-direction: column;
-  padding: 21px 40px;
   border: none;
 }
 
@@ -695,7 +736,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 320px;
-  height: 360px;
+  height: 440px;
   justify-content: space-between;
 }
 
@@ -708,6 +749,8 @@ body {
   padding-bottom: 5px;
   border-bottom: 1px solid black;
 }
+
+
 
 #save,
 #edit {
@@ -733,6 +776,7 @@ body {
 
 #admin-panel {
   width: 360px;
+  height: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -743,35 +787,40 @@ body {
 #latest-order {
   display: flex;
   flex-direction: column;
-  padding: 0.4rem;
   gap: 1px;
-  border: 1px solid black;
   box-shadow: 3px 3px black;
-  font-size: small;
+  border: 1px solid black;
+  padding: 2rem;
 }
 
 /* wishlist */
+
+#wishlist-h2 {
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  width: fit-content;
+  margin: 2rem auto;
+}
+
 #wishlist-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 50px;
+  max-width: 1920px;
+  margin: auto;
 }
 
-.wishlist-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
-  transition:
-    box-shadow 0.25s ease,
-    transform 0.2s ease;
+#wishlist-container .product-card {
+  width: 300px;
+}
+
+.wishlist-item-wrapper {
+  width: 300px;
   display: flex;
   flex-direction: column;
-  width: 22vw;
-  margin-bottom: 14px;
 }
 
 .wishlist-image {
@@ -825,14 +874,6 @@ body {
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.2s ease;
-}
-
-.remove-wishlist-btn {
-  color: black;
-  background: var(--color-primary-hover);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  margin-top: 5px;
 }
 
 #orders-list {

@@ -100,3 +100,74 @@ export async function updateProfile(updatedData) {
     console.log("FEL FRÅN BACKEND:", err);
     throw new Error(err.message || "Kunde inte uppdatera profil");
 }
+
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  return { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+}
+
+export async function getUsers() {
+  const url = new URL("users", getBaseUrl());
+  console.log("getUsers url:", url.toString()); 
+  const response = await fetch(url, { headers: getAuthHeaders() });
+   console.log("getUsers status:", response.status);
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to get users");
+}
+
+export async function updateUser(id, data) {
+  const url = new URL(`users/${id}`, getBaseUrl());
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(data),
+  });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to update user");
+}
+
+export async function deactivateUser(id) {
+  const url = new URL(`users/${id}/deactivate`, getBaseUrl());
+  const response = await fetch(url, { method: "DELETE", headers: getAuthHeaders() });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to deactivate user");
+}
+
+export async function reactivateUser(id) {
+  const url = new URL(`users/${id}/reactivate`, getBaseUrl());
+  const response = await fetch(url, { method: "PATCH", headers: getAuthHeaders() });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to reactivate user");
+}
+
+export async function deleteUserPermanent(id) {
+  const url = new URL(`users/${id}/permanent`, getBaseUrl());
+  const response = await fetch(url, { method: "DELETE", headers: getAuthHeaders() });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to permanently delete user");
+}
+
+export async function makeAdmin(id) {
+  const url = new URL(`users/${id}/make-admin`, getBaseUrl());
+  const response = await fetch(url, { method: "POST", headers: getAuthHeaders() });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to make user admin");
+}
+
+export async function removeAdmin(id) {
+  const url = new URL(`users/${id}/remove-admin`, getBaseUrl());
+  const token = localStorage.getItem("token");
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to remove admin");
+}

@@ -1,3 +1,6 @@
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
+
 const container = document.querySelector("#order-confirmation");
 
 const orderData = sessionStorage.getItem("latestOrder");

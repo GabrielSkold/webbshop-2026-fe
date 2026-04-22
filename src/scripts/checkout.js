@@ -1,5 +1,7 @@
 import { getCart, updateCartCount } from "../utils/cartUtils.js";
 import { createOrder } from "../utils/ordersApi.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 
 const checkoutContainer = document.querySelector("#checkout-items");
 const checkoutTotal = document.querySelector("#checkout-total");
