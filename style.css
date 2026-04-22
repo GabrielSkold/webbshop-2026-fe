@@ -811,11 +811,10 @@ body {
 #wishlist-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  padding: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
-  /* gap: 2rem; */
-  max-width: 1200px;
+  gap: 50px;
+  max-width: 1920px;
   margin: auto;
 }
 
