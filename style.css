@@ -168,7 +168,11 @@ body {
     transform: translateX(-50%);
   }
   100% {
+<<<<<<<<< Temporary merge branch 1
+    transform: translateX(0%);
+=========
     transform: translateX(0);
+>>>>>>>>> Temporary merge branch 2
   }
 }
 
@@ -514,10 +518,16 @@ body {
 .forgot-wrapper,
 #profilePage {
   background: var(--color-surface);
+<<<<<<<<< Temporary merge branch 1
+  /* padding: 2rem; */
+  /* border-radius: var(--radius-md); */
+  /* border: 1px solid var(--color-border); */
+=========
   padding: 2rem;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
+>>>>>>>>> Temporary merge branch 2
 }
 
 .form-group {
@@ -558,9 +568,16 @@ body {
 .register-form button[type="submit"],
 .login-form button[type="submit"],
 .forgot-form button[type="submit"] {
+<<<<<<<<< Temporary merge branch 1
+  flex: 1 1 0;
+  padding: 16px;
+  background: #111;
+  color: #fff;
+=========
   width: 100%;
   background: var(--color-primary);
   color: white;
+>>>>>>>>> Temporary merge branch 2
   border: none;
   padding: 0.85rem 1.5rem;
   border-radius: var(--radius-sm);
@@ -568,7 +585,12 @@ body {
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
+<<<<<<<<< Temporary merge branch 1
+  transition: background 0.2s;
+  width: 100%;
+=========
   transition: background 0.2s ease;
+>>>>>>>>> Temporary merge branch 2
 }
 
 .register-form button[type="submit"]:hover,
@@ -728,7 +750,16 @@ body {
 #profile-wrapper {
   display: flex;
   justify-content: space-between;
+<<<<<<<<< Temporary merge branch 1
+  height: fit-content;
+  margin: 1rem auto;
+  padding: 2rem;
+  gap: 4rem;
+  border: 1px solid black;
+  box-shadow: 3px 3px black;
+=========
   height: 360px;
+>>>>>>>>> Temporary merge branch 2
 }
 
 #profile-info,
@@ -785,6 +816,15 @@ body {
 }
 
 #latest-order {
+<<<<<<<<< Temporary merge branch 1
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+#login-container {
+=========
+>>>>>>>>> Temporary merge branch 2
   display: flex;
   flex-direction: column;
   gap: 1px;
