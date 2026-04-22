@@ -170,7 +170,9 @@ const getProductById = async (slug) => {
       name: product.name,
       price: product.price,
       image: productImages[0]?.url,
-      dropAt: product.dropAt,
+      dropStatus: product.dropStatus,
+      dropAt: product.dropAt ? new Date(product.dropAt).toISOString().split("T")[0] : null,
+      slug: product.slug
     };
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
