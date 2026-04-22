@@ -23,16 +23,26 @@ const renderCartItems = () => {
   cartContainer.innerHTML = cart
     .map(
       (item, index) => `
-        <div class="cart-item">
-            <img src="${item.image}" alt="${item.name}"/>
-            <h3>${item.name}</h3>
-            <p>Size: ${item.size}</p>
-            <p>Price: ${item.price}kr</p>
-            <button class="decrease" data-index="${index}">-</button>
-            <span>${item.quantity}</span>
-            <button class="increase" data-index="${index}">+</button>
-            <button class="remove-btn" data-index="${index}">Remove</button>
-        </div>   
+        <div class="cart-item-wrapper">
+          <article class="product-card">
+            <div class="product-card__image"
+              style="background-image: url('${item.image}')">
+              <div>
+                <h3 class="product-card__name">${item.name}</h3>
+                <p class="product-card__price">${item.price}kr</p>
+              </div>
+            </div>
+          </article>
+          <div class="cart-item-details">
+            <p class="cart-item-size">Size: ${item.size}</p>
+            <div class="cart-item-qty">
+              <button class="decrease" data-index="${index}">-</button>
+              <span>${item.quantity}</span>
+              <button class="increase" data-index="${index}">+</button>
+            </div>
+          </div>
+          <button class="btn-primary remove-btn" data-index="${index}">Remove from cart</button>
+        </div>
     `,
     )
     .join("");

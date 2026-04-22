@@ -625,15 +625,116 @@ body {
   background-color: #eee;
 }
 
-.cart-item {
+.cart-main,
+.wishlist-main {
+  flex: 1;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.cart-item img {
-  width: 80px;
-  height: auto;
+/* cart */
+
+#cart-h1 {
+  text-align: center;
+  font-family: var(--font-logo);
+  font-size: 2rem;
+  color: #000;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  width: fit-content;
+  margin: 2rem auto;
+  text-transform: uppercase;
+  letter-spacing: 10%;
+}
+
+#cart-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  max-width: 1920px;
+  margin: auto;
+}
+
+#cart-items .product-card {
+  width: 300px;
+}
+
+.cart-item-wrapper {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  margin-top: 20px;
+}
+
+.cart-item-size {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid black;
+}
+
+.cart-item-qty button {
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cart-item-qty button:hover {
+  background: black;
+  color: white;
+}
+
+.cart-item-qty span {
+  width: 32px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  line-height: 32px;
+}
+
+#cart-total {
+  color: #000;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 4rem auto 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(0, 0, 0);
+  width: fit-content;
 }
 
 /* Profilsida */
@@ -810,10 +911,15 @@ body {
 
 #wishlist-h2 {
   text-align: center;
+  font-family: var(--font-logo);
+  font-size: 2rem;
+  color: #000;
   padding-bottom: 5px;
   border-bottom: 1px solid black;
   width: fit-content;
   margin: 2rem auto;
+  text-transform: uppercase;
+  letter-spacing: 10%;
 }
 
 #wishlist-container {
@@ -995,7 +1101,7 @@ body {
   display: block;
   width: 100%;
   max-width: 400px;
-  margin: 1.5rem auto;
+  margin: 20px auto;
   padding: 1rem 1.5rem;
   background-color: black;
   color: white;
