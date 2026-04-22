@@ -15,9 +15,23 @@
       <script src="./src/scripts/header.js"></script>
     </header>
 
-    <!-- HERO (full width) -->
-    <section class="hero">
-      
+    <!-- HERO SHELF -->
+    <section class="hero-shelf-section">
+      <h2 class="hero-shelf-title">DROPPING SOON, MARK YOUR CALENDAR</h2>
+      <div class="hero-shelf-carousel">
+        <button class="hero-arrow hero-arrow--prev" id="hero-prev" aria-label="Previous">
+          <img src="/public/arrow.svg" alt="previous" />
+        </button>
+        <div class="shelf" id="hero-shelf"></div>
+        <button class="hero-arrow hero-arrow--next" id="hero-next" aria-label="Next">
+          <img src="/public/arrow.svg" alt="next" />
+        </button>
+      </div>
+      <p id="name" class="product-name-element"></p>
+      <div class="countdown-shop-div">
+        <p id="hero-countdown" class="product-countdown"></p>
+        <a id="hero-shop-btn" href="#" class="index-all-btn">SHOP</a>
+      </div>
     </section>
 
     <!-- MAIN CONTENT -->

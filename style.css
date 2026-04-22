@@ -136,19 +136,23 @@ body {
 }
 
 .underheader {
+  /* for animation */
   overflow: hidden;
-  border: 1px solid black; /* fixed */
+  border:
+    1px,
+    solid black; /* for test */
   height: 25px;
   background-color: white;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  /* removed padding and justify-content */
+  padding: 0 60px;
 }
 
 .brand-links {
-  animation: marquee 120s linear infinite;
+  animation: marquee 35s linear infinite;
   display: flex;
   align-items: center;
   gap: 15rem;
@@ -274,6 +278,7 @@ body {
   letter-spacing: -0.02em;
 }
 
+
 /* Products grid */
 #products {
   flex: 1;
@@ -370,11 +375,12 @@ body {
 }
 
 .products-rubric {
-  font-family: var(--font-body);
+  font-family: var(--font-medium);
   font-size: 20px;
   color: black;
   letter-spacing: 10%;
 }
+
 
 .filter-btn {
   height: 35px;
@@ -499,6 +505,10 @@ body {
 
 .register-wrapper,
 .forgot-wrapper {
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 3px 3px black;
+  padding: 25px;
   max-width: 420px;
   margin: 0 auto;
 }
@@ -556,10 +566,10 @@ body {
   background: #111;
   color: #fff;
   border: none;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 0.85rem 1.5rem;
   font-family: var(--font-body);
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s;
   width: 100%;
@@ -1005,8 +1015,7 @@ body {
   background-color: #222;
 }
 
-.news-main,
-.login-main {
+.news-main {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1051,4 +1060,11 @@ body {
 .toast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+.login-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
