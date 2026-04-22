@@ -136,40 +136,32 @@ body {
 }
 
 .underheader {
-  /* for animation */
   overflow: hidden;
-  border:
-    1px,
-    solid black; /* for test */
+  border: 1px solid black; /* fixed */
   height: 25px;
   background-color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  padding: 0 60px;
+  /* removed padding and justify-content */
 }
 
 .brand-links {
-  animation: marquee 20s linear infinite;
+  animation: marquee 60s linear infinite;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 5rem;
   list-style: none;
-  padding-bottom: 3px;
+  padding-bottom: 0.2rem;
   margin: 0;
-  width: 100vw;
+  width: max-content;
+  white-space: nowrap;
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
 }
 
 .nav-links a {
@@ -275,7 +267,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-
 /* Products grid */
 #products {
   flex: 1;
@@ -377,7 +368,6 @@ body {
   color: black;
   letter-spacing: 10%;
 }
-
 
 .filter-btn {
   height: 35px;
@@ -742,7 +732,8 @@ body {
   justify-content: space-between;
 }
 
-#latest-order, #login-container {
+#latest-order,
+#login-container {
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
@@ -963,7 +954,8 @@ body {
   background-color: #222;
 }
 
-.news-main, .login-main {
+.news-main,
+.login-main {
   flex: 1;
   display: flex;
   flex-direction: column;

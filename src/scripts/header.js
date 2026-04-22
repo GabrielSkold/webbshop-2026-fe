@@ -8,11 +8,6 @@ header.innerHTML = `
             <li><a href="products.html?brand=Adidas">Adidas</a></li>
             <li><a href="products.html?brand=New Balance">New Balance</a></li>
             <li><a href="products.html?brand=Crocs">Crocs</a></li>
-            <li><a href="products.html?brand=Nike">Nike</a></li>
-            <li><a href="products.html?brand=Jordan">Jordan</a></li>
-            <li><a href="products.html?brand=Adidas">Adidas</a></li>
-            <li><a href="products.html?brand=New Balance">New Balance</a></li>
-            <li><a href="products.html?brand=Crocs">Crocs</a></li>
         </ul>
     </nav>
     <nav class="overheader">
@@ -30,7 +25,11 @@ header.innerHTML = `
                 </nav>
                 `;
 
-//  old login link: <a id="user-link" href="loginpage.html"><img src="/public/user-icon.png" alt="user"></a>
+const ul = document.querySelector('.brand-links')
+while (ul.scrollWidth < window.innerWidth * 2) {
+    ul.innerHTML += ul.innerHTML
+}
+
 document.body.append(header);
 
 document.addEventListener("DOMContentLoaded", () => {
