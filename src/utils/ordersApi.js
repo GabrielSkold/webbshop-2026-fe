@@ -73,3 +73,34 @@ export async function getOrdersByUser() {
   const errorMessage = err.errors?.[0]?.message || err.message || "Failed to fetch orders"
   throw new Error(errorMessage)
 }
+
+//Admin panel
+export async function getAllOrders() {
+  const url = new URL("orders", getBaseUrl());
+  const token = localStorage.getItem("token");
+  console.log("getAllOrders url:", url.toString()); // 👈
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+    console.log("getAllOrders status:", response.status); // 👈
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+    console.log("getAllOrders error:", err); // 👈
+  throw new Error(err.error || "Failed to get orders");
+}
+
+export async function updateOrderStatus(id, status) {
+  const url = new URL(`orders/${id}/status`, getBaseUrl());
+  const token = localStorage.getItem("token");
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+  if (response.ok) return response.json();
+  const err = await response.json().catch(() => ({}));
+  throw new Error(err.error || "Failed to update order status");
+}
