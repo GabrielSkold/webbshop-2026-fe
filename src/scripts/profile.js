@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("User:", user);
 
   const profileH1 = document.querySelector(".hello");
-  profileH1.innerHTML = `<h1>Hello ${user.data.firstName} ${user.data.lastName}!</h1>`;
+  profileH1.innerHTML = `<h1>Hello ${user.data.firstName}!</h1>`;
 
   const profilePage = document.querySelector(".profileContainer");
 
@@ -46,9 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     profilePage.innerHTML = `
         <div id="profilePage">
-            <div id="profile-pic">
-                <img src="public/defaultpic.jpg" alt="Profilepic" class="profile-img" />
-            </div>
+
             
             <div id="profile-wrapper">
                 <div id="profile-info">
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p>Address: ${user.data.location.address}</p>
                     <p>City: ${user.data.location.city}</p>
                     <p>Postal code: ${user.data.location.postCode}</p>
-                    <button id="edit">Edit information</button>
+                    <button class="btn-primary">Edit information</button>
                 </div>
 
                 ${
@@ -66,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div id="admin-panel">
             <h2 id="profile-h2">Admin – Product Management</h2>
             <p>Create, update, and remove products through our admin panel.</p>
-            <button id="edit" onclick="window.location.href='/admin.html'">To the admin page</button>
+            <button class="btn-primary" onclick="window.location.href='/admin.html'">To the admin page</button>
         </div>
     `
                     : ""
@@ -96,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     `
                         : `<p>No orders yet.</p>`
                     }
-                    <button id="edit" onclick="window.location.href='/orders.html'">View all orders</button>
+                    <button class="btn-primary" onclick="window.location.href='/orders.html'">View all orders</button>
                 </div>
             </div>
         </div>
