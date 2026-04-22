@@ -27,6 +27,7 @@ const renderCartItems = () => {
           <article class="product-card">
             <div class="product-card__image"
               style="background-image: url('${item.image}')">
+              <span></span>
               <div>
                 <h3 class="product-card__name">${item.name}</h3>
                 <p class="product-card__price">${item.price}kr</p>
