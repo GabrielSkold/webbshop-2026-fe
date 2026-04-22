@@ -37,6 +37,8 @@ function setImage(index) {
   mainImage.src = productImages[currentImageIndex].url;
 }
 
+let contdownInterval = null
+
 function startCountdown(dropAt) {
   const update = () => {
     const diff = Math.max(0, new Date(dropAt) - new Date());
@@ -47,7 +49,7 @@ function startCountdown(dropAt) {
     countdownEl.textContent = `Dropping: ${d.toString().padStart(2, "0")}d : ${h.toString().padStart(2, "0")}h : ${m.toString().padStart(2, "0")}m : ${s.toString().padStart(2, "0")}s`;
   };
   update();
-  setInterval(update, 1000);
+  contdownInterval = setInterval(update, 1000);
 }
 
 function enableSizeButtons(sizes, sizeButtons) {
@@ -136,6 +138,7 @@ const getProductById = async (slug) => {
       const updated = await getProductBySlug(slug);
       if (updated.dropStatus !== "Upcoming") {
         clearInterval(poll);
+        clearInterval(contdownInterval)
         countdownEl.textContent = "Live";
         enableSizeButtons(updated.sizes, sizeButtons);
       }
