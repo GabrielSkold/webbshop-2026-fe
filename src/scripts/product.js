@@ -99,29 +99,42 @@ const getProductById = async (slug) => {
   addToCartButton.textContent = "SELECT SIZE";
 
   sizeSelect.innerHTML = product.sizes
-    .map((size) => `<button data-size="${size.size}">${size.size}</button>`)
+    .map((size) => {
+      const cls = size.stock === 0 ? ' class="out-of-stock"' : "";
+      return `<button data-size="${size.size}"${cls}>${size.size}</button>`;
+    })
     .join("");
 
   const sizeButtons = sizeSelect.querySelectorAll("button");
-  sizeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      sizeButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      selectedSize = button.dataset.size;
 
-      const selectedSizeObject = product.sizes.find(
-        (s) => String(s.size) === selectedSize,
-      );
-
-      if (selectedSizeObject.stock > 0) {
-        addToCartButton.disabled = false;
-        addToCartButton.textContent = "ADD TO CART";
-      } else {
-        addToCartButton.disabled = true;
-        addToCartButton.textContent = "OUT OF STOCK";
-      }
+  if (product.dropStatus === "Upcoming") {
+    sizeButtons.forEach((btn) => {
+      btn.disabled = true;
+      btn.classList.add("out-of-stock");
     });
-  });
+    addToCartButton.disabled = true;
+    addToCartButton.textContent = "UPCOMING";
+  } else {
+    sizeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        sizeButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        selectedSize = button.dataset.size;
+
+        const selectedSizeObject = product.sizes.find(
+          (s) => String(s.size) === selectedSize,
+        );
+
+        if (selectedSizeObject.stock > 0) {
+          addToCartButton.disabled = false;
+          addToCartButton.textContent = "ADD TO CART";
+        } else {
+          addToCartButton.disabled = true;
+          addToCartButton.textContent = "OUT OF STOCK";
+        }
+      });
+    });
+  }
 
   // Color buttons
   if (colorSelector && product.colors?.length) {
@@ -170,7 +183,9 @@ const getProductById = async (slug) => {
       name: product.name,
       price: product.price,
       image: productImages[0]?.url,
-      dropAt: product.dropAt,
+      dropStatus: product.dropStatus,
+      dropAt: product.dropAt ? new Date(product.dropAt).toISOString().split("T")[0] : null,
+      slug: product.slug
     };
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];

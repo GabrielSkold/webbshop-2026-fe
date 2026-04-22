@@ -1,4 +1,6 @@
 import { registerUser } from "../utils/userApi.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 
 document.addEventListener("DOMContentLoaded", initRegister);
 
