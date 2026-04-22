@@ -24,58 +24,30 @@ const renderWishlistItems = () => {
   wishlistContainer.innerHTML = wishlist
     .map(
       (item, index) => `
-        <article class="wishlist-card">
-            <img class="wishlist-image" src="${item.image}" alt="${item.name}" />
-            <p>Drop date: ${item.dropAt}</p>
-            <div class="wishlist-card__body">
-                <h3>${item.name}</h3>
-                <p>Price: ${item.price}kr</p>
-                <button class="add-to-cart" data-index="${index}">Add to cart</button>
-                <button class="remove-wishlist-btn" data-index="${index}">Remove</button>
+        <div class="wishlist-item-wrapper">
+        <a class="product-href" href="product.html?slug=${item.slug}">
+          <article class="product-card">
+            <div class="product-card__image"
+              style="background-image: url('${item.image}')">
+                <p class="products-card-drop-status">${item.dropStatus} - ${item.dropAt}</p>
+                <div>
+                  <h3 class="product-card__name">${item.name}</h3>
+                  <p class="product-card__price">${item.price}:-</p>
+                </div>
             </div>
-        </article>
-    `,
+          </article>
+        </a>
+        <button class="btn-primary remove-wishlist-btn" data-index="${index}">
+          Remove from wishlist
+        </button>
+      </div>
+      `,
     )
     .join("");
 
-  document.querySelectorAll(".add-to-cart").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!requireAuth("You need to be signed in to add items to your cart."))
-        return;
-
-      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-      const item = wishlist[button.dataset.index];
-
-      const cartItem = {
-        productId: item._id,
-        name: item.name,
-        price: item.price,
-        image: item.image,
-        size: null,
-        quantity: 1,
-      };
-
-      let cart = JSON.parse(localStorage.getItem("cart"));
-      if (cart === null) {
-        cart = [];
-      }
-
-      const existingItem = cart.find((c) => c.productId === cartItem.productId);
-
-      if (existingItem) {
-        existingItem.quantity++;
-      } else {
-        cart.push(cartItem);
-      }
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartCount();
-      showToast(`Added to cart: ${item.name}`);
-    });
-  });
-
   document.querySelectorAll(".remove-wishlist-btn").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault(); // prevent navigating via the <a> tag
       const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
       wishlist.splice(button.dataset.index, 1);
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
