@@ -136,32 +136,40 @@ body {
 }
 
 .underheader {
+  /* for animation */
   overflow: hidden;
-  border: 1px solid black; /* fixed */
+  border:
+    1px,
+    solid black; /* for test */
   height: 25px;
   background-color: white;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  /* removed padding and justify-content */
+  padding: 0 60px;
 }
 
 .brand-links {
-  animation: marquee 120s linear infinite;
+  animation: marquee 20s linear infinite;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 15rem;
+  gap: 1.5rem;
   list-style: none;
-  padding-bottom: 0.2rem;
+  padding-bottom: 3px;
   margin: 0;
-  width: max-content;
-  white-space: nowrap;
+  width: 100vw;
 }
 
 @keyframes marquee {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .nav-links a {
@@ -267,6 +275,7 @@ body {
   letter-spacing: -0.02em;
 }
 
+
 /* Products grid */
 #products {
   flex: 1;
@@ -363,11 +372,12 @@ body {
 }
 
 .products-rubric {
-  font-family: var(--font-body);
+  font-family: var(--font-medium);
   font-size: 20px;
   color: black;
   letter-spacing: 10%;
 }
+
 
 .filter-btn {
   height: 35px;
@@ -475,9 +485,9 @@ body {
 #profilePage {
   background: var(--color-surface);
   padding: 2rem;
-  /* border-radius: var(--radius-md); */
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  /* border: 1px solid var(--color-border); */
+  border: 1px solid var(--color-border);
 }
 
 .form-group {
@@ -518,18 +528,17 @@ body {
 .register-form button[type="submit"],
 .login-form button[type="submit"],
 .forgot-form button[type="submit"] {
-  flex: 1 1 0;
-  padding: 16px;
-  margin: 0 5rem;
-  background: #111;
-  color: #fff;
+  width: 100%;
+  background: var(--color-primary);
+  color: white;
   border: none;
-  font-size: 0.85rem;
-  font-weight: 500;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-sm);
   font-family: var(--font-body);
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
 .register-form button[type="submit"]:hover,
@@ -679,7 +688,6 @@ body {
   display: flex;
   justify-content: space-between;
   height: 360px;
-  margin-top: 2rem;
 }
 
 #profile-info,
@@ -732,8 +740,7 @@ body {
   justify-content: space-between;
 }
 
-#latest-order,
-#login-container {
+#latest-order {
   display: flex;
   flex-direction: column;
   padding: 0.4rem;
@@ -954,8 +961,7 @@ body {
   background-color: #222;
 }
 
-.news-main,
-.login-main {
+.news-main {
   flex: 1;
   display: flex;
   flex-direction: column;
