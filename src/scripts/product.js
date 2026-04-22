@@ -50,6 +50,28 @@ function startCountdown(dropAt) {
   setInterval(update, 1000);
 }
 
+function enableSizeButtons(sizes, sizeButtons) {
+  sizeButtons.forEach((btn) => {
+    btn.disabled = false;
+    btn.classList.remove("out-of-stock");
+    btn.addEventListener("click", () => {
+      sizeButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedSize = btn.dataset.size;
+
+      const selectedSizeObject = sizes.find(
+        (s) => String(s.size) === selectedSize
+      );
+
+      addToCartButton.disabled = selectedSizeObject.stock === 0;
+      addToCartButton.textContent =
+        selectedSizeObject.stock > 0 ? "ADD TO CART" : "OUT OF STOCK";
+    });
+  });
+  addToCartButton.disabled = true;
+  addToCartButton.textContent = "SELECT SIZE";
+}
+
 const getProductById = async (slug) => {
   const product = await getProductBySlug(slug);
 
@@ -66,7 +88,6 @@ const getProductById = async (slug) => {
   titleElement.textContent = product.name;
   document.title = `${product.name} - Sole Search`;
   if (brandElement) brandElement.textContent = product.brand || "";
-
   if (priceElement) priceElement.textContent = `${product.price} kr`;
 
   if (product.dropStatus === "Upcoming" && product.dropAt) {
@@ -94,10 +115,6 @@ const getProductById = async (slug) => {
   imgNavUp.addEventListener("click", () => setImage(currentImageIndex - 1));
   imgNavDown.addEventListener("click", () => setImage(currentImageIndex + 1));
 
-  // Size buttons
-  addToCartButton.disabled = true;
-  addToCartButton.textContent = "SELECT SIZE";
-
   sizeSelect.innerHTML = product.sizes
     .map((size) => {
       const cls = size.stock === 0 ? ' class="out-of-stock"' : "";
@@ -114,29 +131,19 @@ const getProductById = async (slug) => {
     });
     addToCartButton.disabled = true;
     addToCartButton.textContent = "UPCOMING";
+
+    const poll = setInterval(async () => {
+      const updated = await getProductBySlug(slug);
+      if (updated.dropStatus !== "Upcoming") {
+        clearInterval(poll);
+        countdownEl.textContent = "Live";
+        enableSizeButtons(updated.sizes, sizeButtons);
+      }
+    }, 10000);
   } else {
-    sizeButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        sizeButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-        selectedSize = button.dataset.size;
-
-        const selectedSizeObject = product.sizes.find(
-          (s) => String(s.size) === selectedSize,
-        );
-
-        if (selectedSizeObject.stock > 0) {
-          addToCartButton.disabled = false;
-          addToCartButton.textContent = "ADD TO CART";
-        } else {
-          addToCartButton.disabled = true;
-          addToCartButton.textContent = "OUT OF STOCK";
-        }
-      });
-    });
+    enableSizeButtons(product.sizes, sizeButtons);
   }
 
-  // Color buttons
   if (colorSelector && product.colors?.length) {
     colorSelector.innerHTML = product.colors
       .map((c) => `<span>${c.name}</span>`)
@@ -184,8 +191,10 @@ const getProductById = async (slug) => {
       price: product.price,
       image: productImages[0]?.url,
       dropStatus: product.dropStatus,
-      dropAt: product.dropAt ? new Date(product.dropAt).toISOString().split("T")[0] : null,
-      slug: product.slug
+      dropAt: product.dropAt
+        ? new Date(product.dropAt).toISOString().split("T")[0]
+        : null,
+      slug: product.slug,
     };
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
