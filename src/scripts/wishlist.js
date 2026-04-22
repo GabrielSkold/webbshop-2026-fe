@@ -1,6 +1,7 @@
 import { updateCartCount } from "../utils/cartUtils.js";
 import { requireAuth } from "../utils/auth.js";
 import { showToast } from "../utils/toast.js";
+updateCartCount();
 
 export const updateWishlistCount = () => {
   const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];

@@ -1,6 +1,10 @@
 import { getOrdersByUser } from "../utils/ordersApi.js";
 import { getProfile } from "../utils/userApi.js";
 import { updateProfile } from "../utils/userApi.js";
+import { updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
+updateCartCount();
 
 document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.querySelector(".logoutBtn");
