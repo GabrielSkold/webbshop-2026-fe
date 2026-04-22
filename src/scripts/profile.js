@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             ${latestOrder.items
                               .map(
                                 (item) => `
-                                <li style="padding-left: 4px;">- ${item.product.name} x${item.quantity} - ${item.unitPrice}:-</li>
+                                <li style="padding-left: 4px;">${item.quantity} x ${item.product.name} ${item.unitPrice}:-</li>
                             `,
                               )
                               .join("")}
