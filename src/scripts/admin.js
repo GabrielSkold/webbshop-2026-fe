@@ -1,4 +1,6 @@
 import { getProducts, createProduct } from "../utils/productsApi.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 
 const token = localStorage.getItem("token")
 const payload = token ? JSON.parse(atob(token.split(".")[1])) : null
