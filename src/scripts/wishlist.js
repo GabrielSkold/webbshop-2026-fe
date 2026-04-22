@@ -29,7 +29,7 @@ const renderWishlistItems = () => {
           <article class="product-card">
             <div class="product-card__image"
               style="background-image: url('${item.image}')">
-                <p class="products-card-drop-status">${item.dropStatus} - ${item.dropAt}</p>
+                <p class="products-card-drop-status">${item.dropAt}</p>
                 <div>
                   <h3 class="product-card__name">${item.name}</h3>
                   <p class="product-card__price">${item.price}:-</p>
