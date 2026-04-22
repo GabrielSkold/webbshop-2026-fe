@@ -99,7 +99,10 @@ const getProductById = async (slug) => {
   addToCartButton.textContent = "SELECT SIZE";
 
   sizeSelect.innerHTML = product.sizes
-    .map((size) => `<button data-size="${size.size}">${size.size}</button>`)
+    .map((size) => {
+      const cls = size.stock === 0 ? ' class="out-of-stock"' : "";
+      return `<button data-size="${size.size}"${cls}>${size.size}</button>`;
+    })
     .join("");
 
   const sizeButtons = sizeSelect.querySelectorAll("button");
