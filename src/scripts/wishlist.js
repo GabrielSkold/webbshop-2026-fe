@@ -49,9 +49,10 @@ const renderWishlistItems = () => {
     button.addEventListener("click", (e) => {
       e.preventDefault(); // prevent navigating via the <a> tag
       const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-      wishlist.splice(button.dataset.index, 1);
+      const removed = wishlist.splice(button.dataset.index, 1)[0];
       localStorage.setItem("wishlist", JSON.stringify(wishlist));
       updateWishlistCount();
+      showToast(`Removed from wishlist: ${removed.name}`);
       renderWishlistItems();
     });
   });
