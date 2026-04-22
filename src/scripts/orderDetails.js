@@ -1,6 +1,8 @@
 import { getOrderById } from "../utils/ordersApi.js";
 import { getProducts } from "../utils/productsApi.js";
 import { updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 
 console.log("script loaded");
 console.log("container:", document.querySelector("#order-details"));

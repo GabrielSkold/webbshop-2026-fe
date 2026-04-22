@@ -1,5 +1,8 @@
 import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
+import { updateWishlistCount } from "./wishlist.js";
+updateWishlistCount();
 updateCartCount();
+
 
 const renderCartItems = () => {
   const cartContainer = document.querySelector("#cart-items");

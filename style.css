@@ -380,6 +380,11 @@ body {
   letter-spacing: 10%;
 }
 
+.filter-btn:hover {
+  cursor: pointer;
+  background: #d6d5d5;
+}
+
 .filter-dropdown {
   width: 320px;
   padding: 25px;
