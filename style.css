@@ -179,7 +179,8 @@ body {
 }
 
 .nav-links a:hover,
-.brand-links a:hover {
+.brand-links a:hover,
+.header-links a:hover {
   color: var(--color-primary-hover);
 }
 
