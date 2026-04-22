@@ -464,6 +464,29 @@ body {
 }
 
 /* Register / Login forms */
+
+.register-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.login-main h1,
+.register-main h1{
+  font-family: var(--font-medium);
+}
+
+.login-main a {
+  color: black;
+}
+
+.login-wrapper {
+  max-width: 420px;
+  margin-bottom: 100px;
+}
+
 .login-main h1,
 .register-main h1,
 .forgot-main h1 {
@@ -471,7 +494,6 @@ body {
 }
 
 .register-wrapper,
-.login-wrapper,
 .forgot-wrapper {
   max-width: 420px;
   margin: 0 auto;
@@ -500,15 +522,15 @@ body {
 
 .form-group label {
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-text);
 }
 
 .form-group input,
 #profilePage input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
+  border: 1px solid black;
   font-family: var(--font-body);
   font-size: 1rem;
   transition:
@@ -527,7 +549,6 @@ body {
 .forgot-form button[type="submit"] {
   flex: 1 1 0;
   padding: 16px;
-  margin: 0 5rem;
   background: #111;
   color: #fff;
   border: none;
@@ -537,6 +558,7 @@ body {
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: background 0.2s;
+  width: 100%;
 }
 
 .register-form button[type="submit"]:hover,
