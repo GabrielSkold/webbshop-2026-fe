@@ -82,14 +82,14 @@ export async function getAllOrders() {
   const response = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
-    console.log("getAllOrders status:", response.status); // 👈
+    console.log("getAllOrders orderStatus:", response.status); // 👈
   if (response.ok) return response.json();
   const err = await response.json().catch(() => ({}));
     console.log("getAllOrders error:", err); // 👈
   throw new Error(err.error || "Failed to get orders");
 }
 
-export async function updateOrderStatus(id, status) {
+export async function updateOrderStatus(id, orderStatus) {
   const url = new URL(`orders/${id}/status`, getBaseUrl());
   const token = localStorage.getItem("token");
   const response = await fetch(url, {
@@ -98,9 +98,9 @@ export async function updateOrderStatus(id, status) {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ orderStatus }),
   });
   if (response.ok) return response.json();
   const err = await response.json().catch(() => ({}));
-  throw new Error(err.error || "Failed to update order status");
+  throw new Error(err.error || "Failed to update order order status");
 }
