@@ -1,5 +1,6 @@
 import { getProducts, getProductBySlug } from "../utils/productsApi.js";
 import { getCart, saveCart, updateCartCount } from "../utils/cartUtils.js";
+import { addToWishlist } from "../utils/wishlistApi.js";
 import { updateWishlistCount } from "./wishlist.js";
 import { requireAuth } from "../utils/auth.js";
 import { showToast } from "../utils/toast.js";
@@ -174,30 +175,21 @@ const getProductById = async (slug) => {
     showToast(`Added to cart: ${product.name}`);
   });
 
-  wishlistButton.addEventListener("click", () => {
+  wishlistButton.addEventListener("click", async () => {
+    console.log("product._id", product._id)
     if (!requireAuth("You need to be signed in to add items to your wishlist."))
       return;
 
-    const item = {
-      productId: product._id,
-      name: product.name,
-      price: product.price,
-      image: productImages[0]?.url,
-      dropStatus: product.dropStatus,
-      dropAt: product.dropAt ? new Date(product.dropAt).toISOString().split("T")[0] : null,
-      slug: product.slug
-    };
-
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const exists = wishlist.find((w) => w.productId === product._id);
-
-    if (exists) {
-      alert("Already in wishlist!");
-    } else {
-      wishlist.push(item);
-      localStorage.setItem("wishlist", JSON.stringify(wishlist));
-      updateWishlistCount();
-      showToast(`Added to wishlist: ${item.name}`);
+    try {
+      await addToWishlist(product._id)
+      await updateWishlistCount()
+      showToast(`Added to wishlist: ${product.name}`)
+    } catch (err) {
+      if (err.message === "Already in wishlist") {
+        showToast("Already in wishlist!")
+      } else {
+        showToast("Could not add to wishlist.")
+      }
     }
   });
 };

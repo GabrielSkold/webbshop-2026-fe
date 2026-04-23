@@ -1,5 +1,7 @@
 import { getBaseUrl } from "./api.js";
 
+const BASE_URL = `${getBaseUrl()}wishlist`;
+
 function getAuthHeaders() {
   const token = localStorage.getItem("token");
   return {
@@ -9,16 +11,14 @@ function getAuthHeaders() {
 }
 
 export async function getWishlist() {
-  const url = new URL("wishlist", getBaseUrl());
-  const response = await fetch(url, { headers: getAuthHeaders() });
+  const response = await fetch(BASE_URL, { headers: getAuthHeaders() });
   if (response.ok) return response.json();
   const err = await response.json().catch(() => ({}));
   throw new Error(err.error || "Failed to fetch wishlist");
 }
 
 export async function addToWishlist(productId) {
-  const url = new URL("wishlist", getBaseUrl());
-  const response = await fetch(url, {
+  const response = await fetch(BASE_URL, {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify({ productId }),
@@ -30,8 +30,7 @@ export async function addToWishlist(productId) {
 }
 
 export async function removeFromWishlist(itemId) {
-  const url = new URL(`wishlist/${itemId}`, getBaseUrl());
-  const response = await fetch(url, {
+  const response = await fetch(`${BASE_URL}/${itemId}`, {
     method: "DELETE",
     headers: getAuthHeaders(),
   });
