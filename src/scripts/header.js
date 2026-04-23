@@ -35,6 +35,12 @@ hamburger.addEventListener("click", () => {
   headerLinks.classList.toggle("open");
 });
 
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".overheader")) {
+    headerLinks.classList.remove("open");
+  }
+});
+
 const ul = document.querySelector('.brand-links')
 while (ul.scrollWidth < window.innerWidth * 2) {
     ul.innerHTML += ul.innerHTML

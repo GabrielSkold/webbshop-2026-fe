@@ -1924,6 +1924,9 @@ body {
   .underheader {
     display: none;
   }
+  .header-links {
+    top: 50px;
+  }
 }
 
 @media (max-width: 650px) {
@@ -2074,6 +2077,7 @@ body {
   .header-links {
     gap: 0.6rem;
     padding: 5px 0;
+    top: 45px;
   }
 
   .header-links a {
