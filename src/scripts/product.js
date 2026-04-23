@@ -28,6 +28,12 @@ const productDesc = document.getElementById("product-desc");
 const productMeta = document.getElementById("product-meta");
 const imgNavUp = document.querySelector(".img-nav--up");
 const imgNavDown = document.querySelector(".img-nav--down");
+const statusLabel = {
+      SoldOut: "Sold out",
+      DropEnd: "Drop ended",
+      Live: "Live",
+      Upcoming: "Upcoming",
+    };
 
 let currentImageIndex = 0;
 let productImages = [];
@@ -77,7 +83,7 @@ const getProductById = async (slug) => {
     const date = new Date(rawDate).toLocaleDateString("sv-SE");
     countdownEl.textContent = `Drop Ended (${date})`;
   } else if (product.dropStatus) {
-    countdownEl.textContent = product.dropStatus;
+    countdownEl.textContent = statusLabel[product.dropStatus] ?? product.dropStatus;
   }
 
   if (productDesc && product.description) {

@@ -15,7 +15,15 @@ const init = async () => {
       container.innerHTML = "No products found.";
       return;
     }
-    console.log(products);
+
+    const statusOrder = { Live: 0, DropEnd: 2, Upcoming: 1, SoldOut: 3 };
+
+    function sortProducts(products) {
+      return [...products].sort(
+    (a, b) => (statusOrder[a.dropStatus] ?? 99) - (statusOrder[b.dropStatus] ?? 99)
+      );
+    }
+    console.log([...new Set(products.map(p => p.dropStatus))]);
 
     function renderProducts(products) {
       container.innerHTML = products
@@ -25,7 +33,7 @@ const init = async () => {
                     <article class="product-card">
                       <div class="product-card__image"
                         style="background-image: url('${product.images[0]?.url}')">
-                          <p class="products-card-drop-status">${product.dropStatus}</p>
+                          <p class="products-card-drop-status">${statusLabel[product.dropStatus] ?? product.dropStatus}</p>
                           <div>
                             <h3 class="product-card__name">${product.name}</h3>
                             <p class="product-card__price">${product.price}:-</p>
@@ -37,6 +45,13 @@ const init = async () => {
         )
         .join("");
     }
+
+    const statusLabel = {
+      SoldOut: "Sold out",
+      DropEnd: "Drop ended",
+      Live: "Live",
+      Upcoming: "Upcoming",
+    };
 
     const brandFilter = document.querySelector("#brandFilter");
     const sizeFilter = document.querySelector("#sizeFilter");
@@ -56,7 +71,7 @@ const init = async () => {
     } else if (brandParam) {
       renderProducts(products.filter((p) => p.brand === brandParam));
     } else {
-      renderProducts(products);
+      renderProducts(sortProducts(products));
     }
 
     [...new Set(products.map((p) => p.brand))].forEach((brand) => {
@@ -76,7 +91,7 @@ const init = async () => {
     );
 
     [...new Set(products.map((p) => p.dropStatus))].forEach((status) => {
-      dropStatusFilter.innerHTML += `<option value="${status}">${status}</option>`;
+      dropStatusFilter.innerHTML += `<option value="${status}">${statusLabel[status] ?? status}</option>`;
     });
 
     filterBtn.addEventListener("click", () => {
@@ -101,11 +116,9 @@ const init = async () => {
           return false;
         if (priceFilter.value && p.price > Number(priceFilter.value))
           return false;
-        if (stockFilter.value && String(p.inStock) !== stockFilter.value)
-          return false;
         return true;
       });
-      renderProducts(applyFiltered);
+      renderProducts(sortProducts(applyFiltered));
     });
   } catch (error) {
     console.error("Failed to load products:", error);
