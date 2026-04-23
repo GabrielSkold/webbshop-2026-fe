@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p>Address: ${user.data.location.address}</p>
                     <p>City: ${user.data.location.city}</p>
                     <p>Postal code: ${user.data.location.postCode}</p>
-                    <button class="btn-primary">Edit information</button>
+                    <button class="edit-btn-primary">Edit information</button>
                 </div>
 
                 ${
@@ -104,7 +104,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
         `;
 
-    document.querySelector("#edit").addEventListener("click", showEditView);
+    document
+      .querySelector(".edit-btn-primary")
+      .addEventListener("click", showEditView);
   }
 
   function showEditView() {

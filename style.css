@@ -278,7 +278,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-
 /* Products grid */
 #products {
   flex: 1;
@@ -380,7 +379,6 @@ body {
   color: black;
   letter-spacing: 10%;
 }
-
 
 .filter-btn {
   height: 35px;
@@ -706,7 +704,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .cart-item-qty button:hover {
@@ -1097,7 +1097,9 @@ body {
 }
 
 /* Cart <a> tag styling */
-.btn-primary {
+.btn-primary,
+.edit-btn-primary,
+#save {
   display: block;
   width: 100%;
   max-width: 400px;
