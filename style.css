@@ -1152,6 +1152,9 @@ body {
 .btn-primary:hover {
   background-color: #222;
 }
+.edit-btn-primary:hover {
+  background-color: #222;
+}
 
 .news-main {
   flex: 1;
@@ -1411,8 +1414,12 @@ body {
 }
 
 @media (max-width: 640px) {
-  .team-grid { grid-template-columns: 1fr; }
-  .team-section { padding: 0 20px; }
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-section {
+    padding: 0 20px;
+  }
 }
 
 .about-stamp {
