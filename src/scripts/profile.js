@@ -35,8 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const user = await getProfile();
-  console.log("User:", user);
+let user;
+
+  try {
+    user = await getProfile();
+    console.log("User:", user);
+  } catch (error) {
+    console.log(error.message)
+    if (error.message === "Unauthorized") {
+      window.location.href = "/loginpage.html"
+      return
+    }
+  }
 
   const profileH1 = document.querySelector(".hello");
   profileH1.innerHTML = `<h1>Hello ${user.data.firstName}!</h1>`;

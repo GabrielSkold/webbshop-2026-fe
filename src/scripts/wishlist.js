@@ -5,8 +5,8 @@ import { getWishlist, removeFromWishlist } from "../utils/wishlistApi.js";
 updateCartCount();
 
 export const updateWishlistCount = async () => {
-  const token = localStorage.getItem("token")
-  if(!token) return
+  const token = localStorage.getItem("token");
+  if (!token) return;
 
   const wishlist = await getWishlist().catch(() => []);
   const wishlistLink = document.querySelector("#wishlist-link");
@@ -19,16 +19,17 @@ const renderWishlistItems = async () => {
   const wishlistContainer = document.querySelector("#wishlist-container");
   if (!wishlistContainer) return;
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   if (!token) {
-    wishlistContainer.innerHTML = "<p>You need to be logged in to view your wishlist.</p>"
-    return
+    wishlistContainer.innerHTML =
+      "<p>You need to be logged in to view your wishlist.</p>";
+    return;
   }
 
   let wishlist = [];
   try {
     wishlist = await getWishlist();
-    console.log(wishlist)
+    console.log(wishlist);
   } catch {
     wishlistContainer.innerHTML = "<p>Could not load wishlist.</p>";
     return;
@@ -66,6 +67,9 @@ const renderWishlistItems = async () => {
   document.querySelectorAll(".remove-wishlist-btn").forEach((button) => {
     button.addEventListener("click", async (e) => {
       e.preventDefault();
+      const wrapper = button.closest(".wishlist-item-wrapper");
+      wrapper.remove();
+      showToast(`Removed from wishlist`);
       try {
         await removeFromWishlist(button.dataset.id);
         await updateWishlistCount();

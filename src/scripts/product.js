@@ -28,6 +28,12 @@ const productDesc = document.getElementById("product-desc");
 const productMeta = document.getElementById("product-meta");
 const imgNavUp = document.querySelector(".img-nav--up");
 const imgNavDown = document.querySelector(".img-nav--down");
+const statusLabel = {
+  SoldOut: "Sold out",
+  DropEnd: "Drop ended",
+  Live: "Live",
+  Upcoming: "Upcoming",
+};
 
 let currentImageIndex = 0;
 let productImages = [];
@@ -77,7 +83,8 @@ const getProductById = async (slug) => {
     const date = new Date(rawDate).toLocaleDateString("sv-SE");
     countdownEl.textContent = `Drop Ended (${date})`;
   } else if (product.dropStatus) {
-    countdownEl.textContent = product.dropStatus;
+    countdownEl.textContent =
+      statusLabel[product.dropStatus] ?? product.dropStatus;
   }
 
   if (productDesc && product.description) {
@@ -176,19 +183,19 @@ const getProductById = async (slug) => {
   });
 
   wishlistButton.addEventListener("click", async () => {
-    console.log("product._id", product._id)
+    console.log("product._id", product._id);
     if (!requireAuth("You need to be signed in to add items to your wishlist."))
       return;
 
     try {
-      await addToWishlist(product._id)
-      await updateWishlistCount()
-      showToast(`Added to wishlist: ${product.name}`)
+      await addToWishlist(product._id);
+      showToast(`${product.name}: Added to wishlist`);
+      updateWishlistCount();
     } catch (err) {
       if (err.message === "Already in wishlist") {
-        showToast("Already in wishlist!")
+        showToast("Already in wishlist!");
       } else {
-        showToast("Could not add to wishlist.")
+        showToast("Could not add to wishlist.");
       }
     }
   });
