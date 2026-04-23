@@ -3,6 +3,8 @@ import { updateWishlistCount } from "./wishlist.js";
 updateWishlistCount();
 updateCartCount();
 
+const checkoutBtn = document.querySelector("#checkoutBtn")
+const token = localStorage.getItem("token")
 
 const renderCartItems = () => {
   const cartContainer = document.querySelector("#cart-items");
@@ -13,12 +15,16 @@ const renderCartItems = () => {
   const cart = getCart();
   if (cart.length === 0) {
     cartContainer.innerHTML = "<p>Your cart is empty</p>";
-
+    checkoutBtn.style.display = "none"
     if (cartTotal) {
       cartTotal.textContent = "";
     }
     return;
   }
+
+  if (token) {
+  checkoutBtn.style.display = ""
+}
 
   cartContainer.innerHTML = cart
     .map(
@@ -100,3 +106,5 @@ const renderCartItems = () => {
 
 updateCartCount();
 renderCartItems();
+
+
