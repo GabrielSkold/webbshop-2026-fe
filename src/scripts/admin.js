@@ -242,7 +242,9 @@ form.addEventListener("submit", async (e) => {
   formData.append("price", price);
   formData.append("description", description);
   formData.append("dropAt", dropAt);
-  formData.append("dropEnd", dropEnd);
+  if (dropEnd) {
+    formData.append("dropEnd", dropEnd);
+  }
   formData.append("colors", JSON.stringify(colorPairs));
   formData.append("sizes", JSON.stringify(sizePairs));
   for (let i = 0; i < files.length; i++) {
@@ -349,7 +351,7 @@ function populateFormForEdit(product) {
   document.getElementById("brand").value = product.brand || "";
   document.getElementById("price").value = product.price || "";
   document.getElementById("description").value = product.description || "";
-  document.getElementById("dropAt").value = product.dropAt ? product.dropAt.slice(0, 10) : "";
+  document.getElementById("dropAt").value = product.dropAt ? new Date(product.dropAt).toISOString().slice(0, 16) : "";
   document.getElementById("dropEnd").value = product.dropEnd ? product.dropEnd.slice(0, 10) : "";
   document.getElementById("slug").value = product.slug || "";
   document.getElementById("modalTitle").textContent = "Update Product";
@@ -395,6 +397,40 @@ function populateFormForEdit(product) {
 
 // ─── Preview ──────────────────────────────────────────────────────────────────
 
+// function initPreview() {
+//   const previewImage = document.getElementById("previewImage");
+//   const previewBrand = document.getElementById("previewBrand");
+//   const previewName = document.getElementById("previewName");
+//   const previewPrice = document.getElementById("previewPrice");
+//   const nameEl = document.getElementById("name");
+//   const brandEl = document.getElementById("brand");
+//   const priceEl = document.getElementById("price");
+//   const imagesEl = document.getElementById("images");
+
+//   function updatePreview() {
+//     previewName.textContent = nameEl.value;
+//     previewBrand.textContent = brandEl.value;
+//     previewPrice.textContent = priceEl.value ? `SEK ${Number(priceEl.value).toFixed(2)}` : "";
+//     if (imagesEl.files && imagesEl.files[0]) {
+//       const reader = new FileReader();
+//       reader.onload = (e) => {
+//         previewImage.src = e.target.result;
+//         previewImage.style.display = "block";
+//       };
+//       reader.readAsDataURL(imagesEl.files[0]);
+//     } else {
+//       previewImage.src = "";
+//       previewImage.style.display = "none";
+//     }
+//   }
+
+//   nameEl.addEventListener("input", updatePreview);
+//   brandEl.addEventListener("input", updatePreview);
+//   priceEl.addEventListener("input", updatePreview);
+//   imagesEl.addEventListener("change", updatePreview);
+//   updatePreview();
+// }
+
 function initPreview() {
   const previewImage = document.getElementById("previewImage");
   const previewBrand = document.getElementById("previewBrand");
@@ -404,28 +440,57 @@ function initPreview() {
   const brandEl = document.getElementById("brand");
   const priceEl = document.getElementById("price");
   const imagesEl = document.getElementById("images");
+  const imageChooser = document.getElementById("imageChooser");
+
+  let selectedPreviewIndex = 0;
 
   function updatePreview() {
     previewName.textContent = nameEl.value;
     previewBrand.textContent = brandEl.value;
-    previewPrice.textContent = priceEl.value ? `SEK ${Number(priceEl.value).toFixed(2)}` : "";
-    if (imagesEl.files && imagesEl.files[0]) {
+    previewPrice.textContent = priceEl.value
+      ? `SEK ${Number(priceEl.value).toFixed(2)}`
+      : "";
+
+    if (imagesEl.files && imagesEl.files[selectedPreviewIndex]) {
       const reader = new FileReader();
       reader.onload = (e) => {
         previewImage.src = e.target.result;
         previewImage.style.display = "block";
       };
-      reader.readAsDataURL(imagesEl.files[0]);
+      reader.readAsDataURL(imagesEl.files[selectedPreviewIndex]);
     } else {
       previewImage.src = "";
       previewImage.style.display = "none";
     }
   }
 
+  function renderImageChooser() {
+    imageChooser.innerHTML = "";
+
+    Array.from(imagesEl.files).forEach((file, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = file.name;
+
+      btn.addEventListener("click", () => {
+        selectedPreviewIndex = index;
+        updatePreview();
+      });
+
+      imageChooser.appendChild(btn);
+    });
+  }
+
   nameEl.addEventListener("input", updatePreview);
   brandEl.addEventListener("input", updatePreview);
   priceEl.addEventListener("input", updatePreview);
-  imagesEl.addEventListener("change", updatePreview);
+
+  imagesEl.addEventListener("change", () => {
+    selectedPreviewIndex = 0;
+    renderImageChooser();
+    updatePreview();
+  });
+
   updatePreview();
 }
 
