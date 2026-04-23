@@ -23,9 +23,23 @@ header.innerHTML = `
                 <li><a id="wishlist-link" href="wishlist.html"><i class="fa-solid fa-heart"></i></a></li>
                 <a id="account-link" href="loginpage.html">Log In</a>
             </div>
+            <button class="hamburgermenu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 `;
+
+const hamburger = document.querySelector(".hamburgermenu");
+const headerLinks = document.querySelector(".header-links");
+
+hamburger.addEventListener("click", () => {
+  headerLinks.classList.toggle("open");
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".overheader")) {
+    headerLinks.classList.remove("open");
+  }
+});
 
 const ul = document.querySelector('.brand-links')
 while (ul.scrollWidth < window.innerWidth * 2) {
@@ -51,3 +65,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
