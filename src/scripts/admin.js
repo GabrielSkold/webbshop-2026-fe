@@ -1,15 +1,27 @@
-import { getProducts, createProduct, updateProduct, deleteProduct } from "../utils/productsApi.js";
+import {
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "../utils/productsApi.js";
 import { updateWishlistCount } from "./wishlist.js";
 updateWishlistCount();
 
-const token = localStorage.getItem("token")
-const payload = token ? JSON.parse(atob(token.split(".")[1])) : null
+const token = localStorage.getItem("token");
+const payload = token ? JSON.parse(atob(token.split(".")[1])) : null;
 
 if (!payload || payload.role !== "admin") {
-  window.location.replace("/index.html")
+  window.location.replace("/index.html");
 }
-import { getUsers, deactivateUser, reactivateUser, deleteUserPermanent, makeAdmin, removeAdmin } from "../utils/userApi.js";
-import { getAllOrders, updateOrderStatus} from "../utils/ordersApi.js";
+import {
+  getUsers,
+  deactivateUser,
+  reactivateUser,
+  deleteUserPermanent,
+  makeAdmin,
+  removeAdmin,
+} from "../utils/userApi.js";
+import { getAllOrders, updateOrderStatus } from "../utils/ordersApi.js";
 
 // DOM references
 const form = document.getElementById("createProductForm");
@@ -49,9 +61,12 @@ function closeModal() {
 document.getElementById("images").addEventListener("change", (e) => {
   const files = e.target.files;
   const fileNames = document.getElementById("fileNames");
-  fileNames.textContent = files.length > 0
-    ? Array.from(files).map((f) => f.name).join(", ")
-    : "No files chosen";
+  fileNames.textContent =
+    files.length > 0
+      ? Array.from(files)
+          .map((f) => f.name)
+          .join(", ")
+      : "No files chosen";
 });
 
 function showConfirm(title, message) {
@@ -73,8 +88,12 @@ function showConfirm(title, message) {
       resolve(result);
     }
 
-    function onOk() { cleanup(true); }
-    function onCancel() { cleanup(false); }
+    function onOk() {
+      cleanup(true);
+    }
+    function onCancel() {
+      cleanup(false);
+    }
 
     okBtn.addEventListener("click", onOk);
     cancelBtn.addEventListener("click", onCancel);
@@ -86,13 +105,17 @@ function showConfirm(title, message) {
 
 document.querySelectorAll(".admin-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".admin-tab").forEach((t) => t.classList.remove("active"));
+    document
+      .querySelectorAll(".admin-tab")
+      .forEach((t) => t.classList.remove("active"));
     tab.classList.add("active");
-    document.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+    document
+      .querySelectorAll(".tab-content")
+      .forEach((c) => c.classList.remove("active"));
     document.getElementById(`${tab.dataset.tab}-tab`).classList.add("active");
 
-     if (tab.dataset.tab === "users") loadUsers();
-     if (tab.dataset.tab === "orders") loadOrders();
+    if (tab.dataset.tab === "users") loadUsers();
+    if (tab.dataset.tab === "orders") loadOrders();
   });
 });
 
@@ -108,13 +131,20 @@ function filterProducts() {
     const matchesSearch = text.includes(query);
     const matchesBrand = brand ? text.includes(brand) : true;
     const matchesStatus = status ? text.includes(status) : true;
-    row.style.display = matchesSearch && matchesBrand && matchesStatus ? "" : "none";
+    row.style.display =
+      matchesSearch && matchesBrand && matchesStatus ? "" : "none";
   });
 }
 
-document.getElementById("searchInput").addEventListener("input", filterProducts);
-document.getElementById("filterBrand").addEventListener("change", filterProducts);
-document.getElementById("filterStatus").addEventListener("change", filterProducts);
+document
+  .getElementById("searchInput")
+  .addEventListener("input", filterProducts);
+document
+  .getElementById("filterBrand")
+  .addEventListener("change", filterProducts);
+document
+  .getElementById("filterStatus")
+  .addEventListener("change", filterProducts);
 
 // ─── Colors ───────────────────────────────────────────────────────────────────
 
@@ -126,7 +156,9 @@ addColorBtn.addEventListener("click", () => {
     <input type="text" name="colorHex" placeholder="Hex (e.g. #fff)" required />
     <button type="button" class="remove-color-btn">&times;</button>
   `;
-  div.querySelector(".remove-color-btn").addEventListener("click", () => div.remove());
+  div
+    .querySelector(".remove-color-btn")
+    .addEventListener("click", () => div.remove());
   colorsContainer.appendChild(div);
   updateRemoveColorButtons();
 });
@@ -134,7 +166,8 @@ addColorBtn.addEventListener("click", () => {
 function updateRemoveColorButtons() {
   const pairs = colorsContainer.querySelectorAll(".color-pair");
   pairs.forEach((pair) => {
-    pair.querySelector(".remove-color-btn").style.display = pairs.length > 1 ? "inline-block" : "none";
+    pair.querySelector(".remove-color-btn").style.display =
+      pairs.length > 1 ? "inline-block" : "none";
   });
 }
 
@@ -155,7 +188,9 @@ addSizeBtn.addEventListener("click", () => {
     <input type="number" name="stock" min="0" placeholder="Stock (e.g. 9)" required />
     <button type="button" class="remove-size-btn">&times;</button>
   `;
-  div.querySelector(".remove-size-btn").addEventListener("click", () => div.remove());
+  div
+    .querySelector(".remove-size-btn")
+    .addEventListener("click", () => div.remove());
   sizesContainer.appendChild(div);
   updateRemoveButtons();
 });
@@ -163,7 +198,8 @@ addSizeBtn.addEventListener("click", () => {
 function updateRemoveButtons() {
   const pairs = sizesContainer.querySelectorAll(".size-stock-pair");
   pairs.forEach((pair) => {
-    pair.querySelector(".remove-size-btn").style.display = pairs.length > 1 ? "inline-block" : "none";
+    pair.querySelector(".remove-size-btn").style.display =
+      pairs.length > 1 ? "inline-block" : "none";
   });
 }
 
@@ -197,12 +233,26 @@ form.addEventListener("submit", async (e) => {
   const dropAt = document.getElementById("dropAt").value;
   const dropEnd = document.getElementById("dropEnd").value;
 
-  const colorPairs = Array.from(colorsContainer.querySelectorAll(".color-pair")).map((pair) => ({
+  if (dropAt) {
+    const dropAtDate = new Date(dropAt);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (dropAtDate < today) {
+      alert("Drop date must be today or later.");
+      return;
+    }
+  }
+
+  const colorPairs = Array.from(
+    colorsContainer.querySelectorAll(".color-pair"),
+  ).map((pair) => ({
     name: pair.querySelector('input[name="colorName"]').value.trim(),
     hex: pair.querySelector('input[name="colorHex"]').value.trim(),
   }));
 
-  const sizePairs = Array.from(sizesContainer.querySelectorAll(".size-stock-pair"))
+  const sizePairs = Array.from(
+    sizesContainer.querySelectorAll(".size-stock-pair"),
+  )
     .map((pair) => {
       const size = pair.querySelector('input[name="size"]').value.trim();
       const stockStr = pair.querySelector('input[name="stock"]').value.trim();
@@ -224,7 +274,12 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/svg+xml",
+  ];
   for (let file of files) {
     if (!allowedTypes.includes(file.type)) {
       alert("Only jpg, jpeg, png, webp, and svg files are allowed.");
@@ -242,7 +297,9 @@ form.addEventListener("submit", async (e) => {
   formData.append("price", price);
   formData.append("description", description);
   formData.append("dropAt", dropAt);
-  formData.append("dropEnd", dropEnd);
+  if (dropEnd) {
+    formData.append("dropEnd", dropEnd);
+  }
   formData.append("colors", JSON.stringify(colorPairs));
   formData.append("sizes", JSON.stringify(sizePairs));
   for (let i = 0; i < files.length; i++) {
@@ -277,17 +334,22 @@ async function loadProducts() {
       return;
     }
 
-    tbody.innerHTML = products.map((p, idx) => {
-      const sizesHtml = Array.isArray(p.sizes) && p.sizes.length > 0
-        ? `<div class="sizes-list">${p.sizes.map((s) => `<span class="size-pill">${s.size} <span class="stock">(${s.stock})</span></span>`).join(" ")}</div>`
-        : "<em>No sizes</em>";
+    tbody.innerHTML = products
+      .map((p, idx) => {
+        const sizesHtml =
+          Array.isArray(p.sizes) && p.sizes.length > 0
+            ? `<div class="sizes-list">${p.sizes.map((s) => `<span class="size-pill">${s.size} <span class="stock">(${s.stock})</span></span>`).join(" ")}</div>`
+            : "<em>No sizes</em>";
 
-      let imgUrl = "";
-      if (Array.isArray(p.images) && p.images.length > 0) {
-        imgUrl = typeof p.images[0] === "string" ? p.images[0] : p.images[0].url || p.images[0].path || "";
-      }
+        let imgUrl = "";
+        if (Array.isArray(p.images) && p.images.length > 0) {
+          imgUrl =
+            typeof p.images[0] === "string"
+              ? p.images[0]
+              : p.images[0].url || p.images[0].path || "";
+        }
 
-      return `
+        return `
         <tr>
           <td><img src="${imgUrl}" alt="${p.name}" style="max-width:60px;max-height:60px;border-radius:8px;border:1px solid #ccc;background:#fafafa;"></td>
           <td>${p.name}</td>
@@ -304,7 +366,8 @@ async function loadProducts() {
           </td>
         </tr>
       `;
-    }).join("");
+      })
+      .join("");
 
     // Populate brand filter
     const brands = [...new Set(products.map((p) => p.brand).filter(Boolean))];
@@ -325,7 +388,12 @@ async function loadProducts() {
     document.querySelectorAll(".delete-product-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const product = products[btn.getAttribute("data-idx")];
-        if (await showConfirm("Delete product", `Are you sure you want to delete '${product.name}'? This cannot be undone.`)) {
+        if (
+          await showConfirm(
+            "Delete product",
+            `Are you sure you want to delete '${product.name}'? This cannot be undone.`,
+          )
+        ) {
           try {
             await deleteProduct(product.slug);
             loadProducts();
@@ -335,7 +403,6 @@ async function loadProducts() {
         }
       });
     });
-
   } catch (err) {
     tbody.innerHTML = "<tr><td colspan='7'>Failed to load products.</td></tr>";
     console.error("Failed to load products:", err);
@@ -349,7 +416,7 @@ function populateFormForEdit(product) {
   document.getElementById("brand").value = product.brand || "";
   document.getElementById("price").value = product.price || "";
   document.getElementById("description").value = product.description || "";
-  document.getElementById("dropAt").value = product.dropAt ? product.dropAt.slice(0, 10) : "";
+  document.getElementById("dropAt").value = product.dropAt ? new Date(product.dropAt).toISOString().slice(0, 16) : "";
   document.getElementById("dropEnd").value = product.dropEnd ? product.dropEnd.slice(0, 10) : "";
   document.getElementById("slug").value = product.slug || "";
   document.getElementById("modalTitle").textContent = "Update Product";
@@ -365,7 +432,9 @@ function populateFormForEdit(product) {
         <input type="text" name="colorHex" placeholder="Hex (e.g. #fff)" required value="${c.hex || ""}" />
         <button type="button" class="remove-color-btn">&times;</button>
       `;
-      div.querySelector(".remove-color-btn").addEventListener("click", () => div.remove());
+      div
+        .querySelector(".remove-color-btn")
+        .addEventListener("click", () => div.remove());
       colorsContainer.appendChild(div);
     });
   } else {
@@ -382,7 +451,9 @@ function populateFormForEdit(product) {
         <input type="number" name="stock" min="0" placeholder="Stock (e.g. 9)" required value="${s.stock ?? ""}" />
         <button type="button" class="remove-size-btn">&times;</button>
       `;
-      div.querySelector(".remove-size-btn").addEventListener("click", () => div.remove());
+      div
+        .querySelector(".remove-size-btn")
+        .addEventListener("click", () => div.remove());
       sizesContainer.appendChild(div);
     });
   } else {
@@ -395,6 +466,40 @@ function populateFormForEdit(product) {
 
 // ─── Preview ──────────────────────────────────────────────────────────────────
 
+// function initPreview() {
+//   const previewImage = document.getElementById("previewImage");
+//   const previewBrand = document.getElementById("previewBrand");
+//   const previewName = document.getElementById("previewName");
+//   const previewPrice = document.getElementById("previewPrice");
+//   const nameEl = document.getElementById("name");
+//   const brandEl = document.getElementById("brand");
+//   const priceEl = document.getElementById("price");
+//   const imagesEl = document.getElementById("images");
+
+//   function updatePreview() {
+//     previewName.textContent = nameEl.value;
+//     previewBrand.textContent = brandEl.value;
+//     previewPrice.textContent = priceEl.value ? `SEK ${Number(priceEl.value).toFixed(2)}` : "";
+//     if (imagesEl.files && imagesEl.files[0]) {
+//       const reader = new FileReader();
+//       reader.onload = (e) => {
+//         previewImage.src = e.target.result;
+//         previewImage.style.display = "block";
+//       };
+//       reader.readAsDataURL(imagesEl.files[0]);
+//     } else {
+//       previewImage.src = "";
+//       previewImage.style.display = "none";
+//     }
+//   }
+
+//   nameEl.addEventListener("input", updatePreview);
+//   brandEl.addEventListener("input", updatePreview);
+//   priceEl.addEventListener("input", updatePreview);
+//   imagesEl.addEventListener("change", updatePreview);
+//   updatePreview();
+// }
+
 function initPreview() {
   const previewImage = document.getElementById("previewImage");
   const previewBrand = document.getElementById("previewBrand");
@@ -404,31 +509,59 @@ function initPreview() {
   const brandEl = document.getElementById("brand");
   const priceEl = document.getElementById("price");
   const imagesEl = document.getElementById("images");
+  const imageChooser = document.getElementById("imageChooser");
+
+  let selectedPreviewIndex = 0;
 
   function updatePreview() {
     previewName.textContent = nameEl.value;
     previewBrand.textContent = brandEl.value;
-    previewPrice.textContent = priceEl.value ? `SEK ${Number(priceEl.value).toFixed(2)}` : "";
-    if (imagesEl.files && imagesEl.files[0]) {
+    previewPrice.textContent = priceEl.value
+      ? `SEK ${Number(priceEl.value).toFixed(2)}`
+      : "";
+
+    if (imagesEl.files && imagesEl.files[selectedPreviewIndex]) {
       const reader = new FileReader();
       reader.onload = (e) => {
         previewImage.src = e.target.result;
         previewImage.style.display = "block";
       };
-      reader.readAsDataURL(imagesEl.files[0]);
+      reader.readAsDataURL(imagesEl.files[selectedPreviewIndex]);
     } else {
       previewImage.src = "";
       previewImage.style.display = "none";
     }
   }
 
+  function renderImageChooser() {
+    imageChooser.innerHTML = "";
+
+    Array.from(imagesEl.files).forEach((file, index) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = file.name;
+
+      btn.addEventListener("click", () => {
+        selectedPreviewIndex = index;
+        updatePreview();
+      });
+
+      imageChooser.appendChild(btn);
+    });
+  }
+
   nameEl.addEventListener("input", updatePreview);
   brandEl.addEventListener("input", updatePreview);
   priceEl.addEventListener("input", updatePreview);
-  imagesEl.addEventListener("change", updatePreview);
+
+  imagesEl.addEventListener("change", () => {
+    selectedPreviewIndex = 0;
+    renderImageChooser();
+    updatePreview();
+  });
+
   updatePreview();
 }
-
 
 // ─── Admin ─────────────────────────────────────────────────────────────────────
 async function loadUsers() {
@@ -441,9 +574,11 @@ async function loadUsers() {
       return;
     }
 
-    console.log(users)
+    console.log(users);
 
-    usersTableBody.innerHTML = users.map((u) => `
+    usersTableBody.innerHTML = users
+      .map(
+        (u) => `
       <tr>
         <td>${u.name || "-"} ${u.lastName || "-"}</td>
         <td>${u.email || "-"}</td>
@@ -451,24 +586,33 @@ async function loadUsers() {
         <td>${u.isActive ? "Active" : "Inactive"}</td>
         <td>
           <div style="display:flex;gap:8px;align-items:center;">
-            ${u.isActive
-              ? `<button class="deactivate-user-btn admin-action-btn admin-delete-btn" data-id="${u.id}"><i class="fa fa-ban"></i> Deactivate</button>`
-              : `<button class="reactivate-user-btn admin-action-btn" data-id="${u.id}"><i class="fa fa-check"></i> Reactivate</button>`
+            ${
+              u.isActive
+                ? `<button class="deactivate-user-btn admin-action-btn admin-delete-btn" data-id="${u.id}"><i class="fa fa-ban"></i> Deactivate</button>`
+                : `<button class="reactivate-user-btn admin-action-btn" data-id="${u.id}"><i class="fa fa-check"></i> Reactivate</button>`
             }
-            ${u.role !== "admin"
-              ? `<button class="make-admin-btn admin-action-btn" data-id="${u.id}"><i class="fa fa-shield"></i> Make Admin</button>`
-              : `<button class="remove-admin-btn admin-action-btn admin-delete-btn" data-id="${u.id}"><i class="fa fa-shield"></i> Remove Admin</button>`
-}
+            ${
+              u.role !== "admin"
+                ? `<button class="make-admin-btn admin-action-btn" data-id="${u.id}"><i class="fa fa-shield"></i> Make Admin</button>`
+                : `<button class="remove-admin-btn admin-action-btn admin-delete-btn" data-id="${u.id}"><i class="fa fa-shield"></i> Remove Admin</button>`
+            }
             <button class="delete-user-btn admin-action-btn admin-delete-btn" data-id="${u.id}"><i class="fa fa-trash"></i> Delete</button>
           </div>
         </td>
       </tr>
-    `).join("");
+    `,
+      )
+      .join("");
 
     // Deactivate
     document.querySelectorAll(".deactivate-user-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        if (await showConfirm("Deactivate user","Are you sure you want to deactivate this user?")) {
+        if (
+          await showConfirm(
+            "Deactivate user",
+            "Are you sure you want to deactivate this user?",
+          )
+        ) {
           try {
             await deactivateUser(btn.dataset.id);
             loadUsers();
@@ -494,7 +638,12 @@ async function loadUsers() {
     // Make admin
     document.querySelectorAll(".make-admin-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        if (await showConfirm("Make admin", "Are you sure you want to make this user an admin?")) {
+        if (
+          await showConfirm(
+            "Make admin",
+            "Are you sure you want to make this user an admin?",
+          )
+        ) {
           try {
             await makeAdmin(btn.dataset.id);
             loadUsers();
@@ -507,8 +656,13 @@ async function loadUsers() {
 
     //Remove admin
     document.querySelectorAll(".remove-admin-btn").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-        if (await showConfirm("Remove admin", "Are you sure you want to remove admin rights from this user?")) {
+      btn.addEventListener("click", async () => {
+        if (
+          await showConfirm(
+            "Remove admin",
+            "Are you sure you want to remove admin rights from this user?",
+          )
+        ) {
           try {
             await removeAdmin(btn.dataset.id);
             loadUsers();
@@ -522,7 +676,12 @@ async function loadUsers() {
     // Permanent delete
     document.querySelectorAll(".delete-user-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        if (await showConfirm("Delete user", "Are you sure you want to permanently delete this user? This cannot be undone.")) {
+        if (
+          await showConfirm(
+            "Delete user",
+            "Are you sure you want to permanently delete this user? This cannot be undone.",
+          )
+        ) {
           try {
             await deleteUserPermanent(btn.dataset.id);
             loadUsers();
@@ -532,9 +691,9 @@ async function loadUsers() {
         }
       });
     });
-
   } catch (err) {
-    usersTableBody.innerHTML = "<tr><td colspan='5'>Failed to load users.</td></tr>";
+    usersTableBody.innerHTML =
+      "<tr><td colspan='5'>Failed to load users.</td></tr>";
     console.error("Failed to load users:", err);
   }
 }
@@ -546,11 +705,14 @@ async function loadOrders() {
     const orders = await getAllOrders();
 
     if (orders.length === 0) {
-      ordersTableBody.innerHTML = "<tr><td colspan='7'>No orders yet.</td></tr>";
+      ordersTableBody.innerHTML =
+        "<tr><td colspan='7'>No orders yet.</td></tr>";
       return;
     }
 
-    ordersTableBody.innerHTML = orders.map((o) => `
+    ordersTableBody.innerHTML = orders
+      .map(
+        (o) => `
       <tr>
         <td>${o._id || o.id}</td>
         <td>${o.user?.email || o.user || "-"}</td>
@@ -572,12 +734,16 @@ async function loadOrders() {
           </button>
         </td>
       </tr>
-    `).join("");
+    `,
+      )
+      .join("");
 
     document.querySelectorAll(".save-status-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const id = btn.dataset.id;
-        const select = document.querySelector(`.order-status-select[data-id="${id}"]`);
+        const select = document.querySelector(
+          `.order-status-select[data-id="${id}"]`,
+        );
         const status = select.value;
         try {
           await updateOrderStatus(id, status);
@@ -587,9 +753,9 @@ async function loadOrders() {
         }
       });
     });
-
   } catch (err) {
-    ordersTableBody.innerHTML = "<tr><td colspan='7'>Failed to load orders.</td></tr>";
+    ordersTableBody.innerHTML =
+      "<tr><td colspan='7'>Failed to load orders.</td></tr>";
     console.error("Failed to load orders:", err);
   }
 }

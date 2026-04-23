@@ -76,6 +76,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
   min-width: 320px;
@@ -1450,11 +1451,13 @@ body {
 }
 
 .team-heading {
+  color: #000000;
   font-family: var(--font-logo);
-  font-size: 36px;
+  font-size: 30px;
   text-align: center;
   margin-bottom: 40px;
   padding: 10px 0;
+  letter-spacing: 10%;
 }
 
 .team-grid {
@@ -1476,6 +1479,7 @@ body {
   object-position: center top;
   display: block;
   transition: transform 0.3s ease;
+  filter: grayscale(1) brightness(1.15);
 }
 
 .team-card:hover .team-photo {
@@ -1501,6 +1505,17 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-text);
+}
+
+.team-email {
+  margin: 4px 0 0;
+  font-size: 11px;
+  text-align: center;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 @media (max-width: 640px) {
