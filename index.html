@@ -10,6 +10,11 @@
   </head>
   <body>
 
+    <!-- SPLASH LOADER -->
+    <div id="site-loader">
+      <img src="/public/logo-draw.gif" alt="Sole Search" id="loader-gif" />
+    </div>
+
     <!-- HEADER -->
     <header class="site-header">
       <script src="./src/scripts/header.js"></script>
@@ -61,5 +66,19 @@
     <!-- PAGE-SPECIFIC JAVASCRIPT -->
     <script type="module" src="./src/scripts/index.js"></script>
     <script type="module" src="./src/scripts/cart.js"></script>
+
+    <script>
+      (function () {
+        const loader = document.getElementById('site-loader');
+
+        function dismiss() {
+          loader.classList.add('fade-out');
+          loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+        }
+
+        setTimeout(dismiss, 3000); // match to GIF duration in ms
+        loader.addEventListener('click', dismiss); // click to skip
+      })();
+    </script>
   </body>
 </html>
