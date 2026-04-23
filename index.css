@@ -190,3 +190,14 @@
 .index-all-btn:hover {
   background-color: var(--color-primary-hover);
 }
+
+.index-products-grid .product-card {
+  min-width: 0;
+  width: 100%;
+}
+
+.index-products-grid .product-card__image {
+  aspect-ratio: 1;
+  width: 100%;
+  background-size: cover;
+}

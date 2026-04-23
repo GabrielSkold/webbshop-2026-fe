@@ -382,7 +382,7 @@ body {
 
 .filter-btn {
   height: 35px;
-  width: 320px;
+  width: 30%;
   border: 1px solid black;
   background-color: var(--color-bg);
   font-family: var(--font-medium);
@@ -1212,7 +1212,29 @@ body {
 
 /*media queries*/
 
-@media (max-width: 1920px) and (min-width: 1025px) {
+@media (max-width: 1920px) and (min-width: 1600px) {
+  .hero-shelf-section {
+    padding: 0 15px;
+  }
+
+  .hero-shelf-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .index-products-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px;
+  }
+
+  .index-section-header {
+    padding-left: 15px;
+  }
+
+  .index-all-btn-wrapper {
+    padding: 0 15px;
+  }
+
   .main-content {
     width: 100%;
     padding-left: 60px;
@@ -1222,6 +1244,54 @@ body {
   #products {
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
+  }
+
+  .products-wrapper.filter-open #products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .header-links {
+    width: auto;
+    gap: 2rem;
+  }
+
+  .nav-icons {
+    width: auto;
+  }
+
+  .overheader {
+    padding: 0 60px;
+  }
+}
+
+@media (max-width: 1600px) and (min-width: 1200px) {
+  .index-section-header {
+    padding-left: 15px;
+  }
+
+  .index-all-btn-wrapper {
+    padding: 0 15px;
+  }
+
+  .main-content {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .index-products-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 15px;
+  }
+
+  #products {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  #products {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
   }
 
   .products-wrapper.filter-open #products {
@@ -1242,26 +1312,33 @@ body {
   }
 }
 
-@media (max-width: 1400px) and (min-width: 1025px) {
-  #products {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 35px;
-  }
-
-  .products-wrapper.filter-open #products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .header-links {
-    width: auto;
-  }
-}
-
 /* ============================================
    TABLET — max 1024px
    ============================================ */
    
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+
+  .hero-shelf-section {
+    padding: 0 15px;
+  }
+
+  .hero-shelf-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .index-products-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 15px;
+  }
+
+  .index-section-header {
+    padding-left: 15px;
+  }
+
+  .index-all-btn-wrapper {
+    padding: 0 15px;
+  }
 
   /* Header */
   .overheader {
@@ -1384,7 +1461,6 @@ body {
   }
 
   .filter-btn {
-    width: 250px;
     flex: none;
   }
 
