@@ -306,3 +306,20 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 /* For cart */
+
+@media (max-width: 1200px) {
+  .product-page {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 0;
+    min-height: unset;
+  }
+
+  .product-page__image-panel {
+    padding: 20px;
+  }
+
+  .product-page__info-panel {
+    margin: 0 0 50px 0;
+  }
+}
