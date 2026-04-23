@@ -108,7 +108,7 @@ body {
 }
 
 .logo {
-  width: 300px;
+  width: auto;
   height: 32px;
   font-family: var(--font-logo);
   font-size: 32px;
@@ -120,6 +120,10 @@ body {
 
 .logo:hover {
   color: var(--color-primary-hover);
+}
+
+.hamburgermenu {
+  display: none;
 }
 
 /* Tog bort sökfunktionen */
@@ -1463,6 +1467,7 @@ body {
 /*media queries*/
 
 @media (max-width: 1920px) and (min-width: 1600px) {
+
   .hero-shelf-section {
     padding: 0 15px;
   }
@@ -1515,6 +1520,7 @@ body {
 }
 
 @media (max-width: 1600px) and (min-width: 1200px) {
+
   .index-section-header {
     padding-left: 15px;
   }
@@ -1649,6 +1655,25 @@ body {
 @media (max-width: 768px) {
 
   /* --- HEADER --- */
+  .hamburgermenu {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1.4rem;
+  }
+
+  .header-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
   .overheader {
     padding: 10px 20px;
     flex-wrap: wrap;
@@ -1658,14 +1683,30 @@ body {
 
   .logo {
     font-size: 22px;
-    width: auto;
   }
 
   .header-links {
-    justify-content: center;
-    gap: 2rem;
-    padding: 8px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 20px 0;
+    background-color: black;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    z-index: 99;
+  }
+
+  .header-links.open {
+    display: flex;
+  }
+
+  .header-links a {
+    font-size: 16px;
+    color: white;
   }
 
   .nav-icons {
@@ -1894,6 +1935,7 @@ body {
 
   .logo {
     font-size: 16px;
+    margin-top: 5px;
   }
 
   .nav-icons {
