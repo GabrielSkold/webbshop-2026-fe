@@ -221,6 +221,17 @@ body {
   transition: color 0.2s ease;
 }
 
+.brand-sep {
+  display: flex;
+  align-items: center;
+}
+
+.brand-sep img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 .nav-links a:hover,
 .brand-links a:hover,
 .header-links a:hover {

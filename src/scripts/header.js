@@ -8,6 +8,7 @@ header.innerHTML = `
             <li><a href="products.html?brand=Adidas">Adidas</a></li>
             <li><a href="products.html?brand=New Balance">New Balance</a></li>
             <li><a href="products.html?brand=Crocs">Crocs</a></li>
+            <li class="brand-sep"><img src="/public/favicon_ss/favicon-32x32.png" alt="" /></li>
         </ul>
     </nav>
     <nav class="overheader">
