@@ -7,8 +7,17 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
+
+    <!-- SPLASH LOADER -->
+    <div id="site-loader">
+      <img src="/public/logo-draw.gif" alt="Sole Search" id="loader-gif" />
+    </div>
 
     <!-- HEADER -->
     <header class="site-header">
@@ -61,5 +70,24 @@
     <!-- PAGE-SPECIFIC JAVASCRIPT -->
     <script type="module" src="./src/scripts/index.js"></script>
     <script type="module" src="./src/scripts/cart.js"></script>
+
+    <script>
+      (function () {
+        const loader = document.getElementById('site-loader');
+
+        function dismiss() {
+          loader.classList.add('fade-out');
+          loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+        }
+
+        if (sessionStorage.getItem('visited')) {
+          loader.remove();
+        } else {
+          sessionStorage.setItem('visited', '1');
+          setTimeout(dismiss, 1900); // match to GIF duration in ms
+          loader.addEventListener('click', dismiss); // click to skip
+        }
+      })();
+    </script>
   </body>
 </html>
