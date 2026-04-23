@@ -37,11 +37,32 @@ const statusLabel = {
 
 let currentImageIndex = 0;
 let productImages = [];
+let countdownInterval = null;
 
 function setImage(index) {
   if (!productImages.length) return;
   currentImageIndex = (index + productImages.length) % productImages.length;
   mainImage.src = productImages[currentImageIndex].url;
+}
+
+function enableSizeButtons(sizes, sizeButtons) {
+  sizeButtons.forEach((btn) => {
+    btn.disabled = false;
+    btn.classList.remove("out-of-stock");
+    btn.addEventListener("click", () => {
+      sizeButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedSize = btn.dataset.size;
+      const selectedSizeObject = sizes.find(
+        (s) => String(s.size) === selectedSize,
+      );
+      addToCartButton.disabled = selectedSizeObject.stock === 0;
+      addToCartButton.textContent =
+        selectedSizeObject.stock > 0 ? "ADD TO CART" : "OUT OF STOCK";
+    });
+  });
+  addToCartButton.disabled = true;
+  addToCartButton.textContent = "SELECT SIZE";
 }
 
 function startCountdown(dropAt) {
@@ -54,7 +75,7 @@ function startCountdown(dropAt) {
     countdownEl.textContent = `Dropping: ${d.toString().padStart(2, "0")}d : ${h.toString().padStart(2, "0")}h : ${m.toString().padStart(2, "0")}m : ${s.toString().padStart(2, "0")}s`;
   };
   update();
-  setInterval(update, 1000);
+  countdownInterval = setInterval(update, 1000);
 }
 
 const getProductById = async (slug) => {
@@ -122,26 +143,23 @@ const getProductById = async (slug) => {
     });
     addToCartButton.disabled = true;
     addToCartButton.textContent = "UPCOMING";
-  } else {
-    sizeButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        sizeButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-        selectedSize = button.dataset.size;
 
-        const selectedSizeObject = product.sizes.find(
-          (s) => String(s.size) === selectedSize,
-        );
-
-        if (selectedSizeObject.stock > 0) {
-          addToCartButton.disabled = false;
-          addToCartButton.textContent = "ADD TO CART";
-        } else {
-          addToCartButton.disabled = true;
-          addToCartButton.textContent = "OUT OF STOCK";
+    const poll = setInterval(async () => {
+      try {
+        const updated = await getProductBySlug(slug);
+        console.log("poll fired, status:", updated.dropStatus);
+        if (updated.dropStatus !== "Upcoming") {
+          clearInterval(poll);
+          clearInterval(countdownInterval);
+          countdownEl.textContent = "Live";
+          enableSizeButtons(updated.sizes, sizeButtons);
         }
-      });
-    });
+      } catch (err) {
+        console.error("poll error:", err);
+      }
+    }, 10000);
+  } else {
+    enableSizeButtons(product.sizes, sizeButtons);
   }
 
   // Color buttons
@@ -183,7 +201,6 @@ const getProductById = async (slug) => {
   });
 
   wishlistButton.addEventListener("click", async () => {
-    console.log("product._id", product._id);
     if (!requireAuth("You need to be signed in to add items to your wishlist."))
       return;
 
