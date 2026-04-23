@@ -3,49 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hakim Livs</title>
+    <title>Sole Search</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
 
+    <!-- SPLASH LOADER -->
+    <div id="site-loader">
+      <img src="/public/logo-draw.gif" alt="Sole Search" id="loader-gif" />
+    </div>
+
     <!-- HEADER -->
     <header class="site-header">
-      <nav>
-        <a href="index.html" class="logo">Hakim Livs</a>
-        <ul class="nav-links">
-          <li><a href="products.html">Products</a></li>
-          <li><a href="cart.html">Cart (0)</a></li>
-          <li><a href="register.html">Register</a></li>
-          <li><a href="admin.html">Admin</a></li>
-        </ul>
-      </nav>
+      <script src="./src/scripts/header.js"></script>
     </header>
 
-    <!-- HERO (full width) -->
-    <section class="hero">
-      <h1>Welcome to Hakim Livs</h1>
-      <p>Fresh groceries delivered to your door</p>
+    <!-- HERO SHELF -->
+    <section class="hero-shelf-section">
+      <h2 class="hero-shelf-title">DROPPING SOON...</h2>
+      <div class="hero-shelf-carousel">
+        <button class="hero-arrow hero-arrow--prev" id="hero-prev" aria-label="Previous">
+          <img src="/public/arrow.svg" alt="previous" />
+        </button>
+        <div class="shelf" id="hero-shelf"></div>
+        <button class="hero-arrow hero-arrow--next" id="hero-next" aria-label="Next">
+          <img src="/public/arrow.svg" alt="next" />
+        </button>
+      </div>
+      <p id="name" class="product-name-element"></p>
+      <div class="countdown-shop-div">
+        <p id="hero-countdown" class="product-countdown"></p>
+        <a id="hero-shop-btn" href="#" class="index-all-btn">SHOP</a>
+      </div>
     </section>
 
     <!-- MAIN CONTENT -->
+    <div class="index-section-header">
+      <h2 class="products-rubric">LIVE NOW</h2>
+    </div>
     <main class="main-content">
-      <h1>Featured products</h1>
-      <div id="products"></div>
+      <div id="live-products" class="index-products-grid"></div>
     </main>
+
+    <div class="index-section-header">
+      <h2 class="products-rubric">UPCOMING DROPS</h2>
+    </div>
+    <main class="main-content">
+      <div id="upcoming-products" class="index-products-grid"></div>
+    </main>
+
+    <div class="index-all-btn-wrapper">
+      <a href="products.html" class="index-all-btn">ALL SNEAKERS</a>
+    </div>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-      <div class="footer-content">
-        <p>&copy; 2024 Hakim Livs. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/terms">Terms</a>
-        </div>
-      </div>
+      <script src="./src/scripts/footer.js"></script>
     </footer>
 
     <!-- PAGE-SPECIFIC JAVASCRIPT -->
     <script type="module" src="./src/scripts/index.js"></script>
+    <script type="module" src="./src/scripts/cart.js"></script>
+
+    <script>
+      (function () {
+        const loader = document.getElementById('site-loader');
+
+        function dismiss() {
+          loader.classList.add('fade-out');
+          loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+        }
+
+        if (sessionStorage.getItem('visited')) {
+          loader.remove();
+        } else {
+          sessionStorage.setItem('visited', '1');
+          setTimeout(dismiss, 1900); // match to GIF duration in ms
+          loader.addEventListener('click', dismiss); // click to skip
+        }
+      })();
+    </script>
   </body>
 </html>

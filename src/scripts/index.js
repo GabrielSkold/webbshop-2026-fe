@@ -1,73 +1,59 @@
 import { getProducts } from "../utils/productsApi.js";
+import { updateWishlistCount } from "./wishlist.js";
+import { initHeroShelf } from "./heroShelf.js";
+updateWishlistCount();
+initHeroShelf();
 
-// TEMP: Default products for rendering when backend is unavailable
-const TEMP_PRODUCTS = [
-  { name: "Organic Tomatoes", price: 4.99, image: null },
-  { name: "Fresh Milk", price: 2.49, image: null },
-  { name: "Whole Grain Bread", price: 3.99, image: null },
-  { name: "Free Range Eggs", price: 5.49, image: null },
-  { name: "Bananas", price: 1.29, image: null },
-  { name: "Greek Yogurt", price: 3.79, image: null },
-];
+const upcomingContainer = document.getElementById("upcoming-products");
+const liveContainer = document.getElementById("live-products");
 
-document.addEventListener("DOMContentLoaded", loadProducts);
+function getStatusLabel(product) {
+  if (product.dropStatus === "Upcoming" && product.dropAt) {
+    const raw = product.dropAt?.$date ?? product.dropAt;
+    return new Date(raw).toLocaleDateString("sv-SE");
+  }
+  return product.dropStatus;
+}
 
-async function loadProducts() {
-  const productsContainer = document.getElementById("products");
-  productsContainer.innerHTML = "<p>Loading products...</p>";
+function renderGrid(products, container) {
+  container.innerHTML = products
+    .map(
+      (product) => `
+        <a class="product-href" href="product.html?slug=${product.slug}">
+          <article class="product-card">
+            <div class="product-card__image"
+              style="background-image: url('${product.images[0]?.url}')">
+                <p class="products-card-drop-status">${getStatusLabel(product)}</p>
+                <div>
+                  <h3 class="product-card__name">${product.name}</h3>
+                  <p class="product-card__price">${product.price}:-</p>
+                </div>
+            </div>
+          </article>
+        </a>
+      `
+    )
+    .join("");
+}
 
+async function init() {
   try {
     const products = await getProducts();
-    productsContainer.innerHTML = "";
+    const upcoming = products
+      .filter((p) => p.dropStatus === "Upcoming")
+      .sort((a, b) => {
+        const dateA = new Date(a.dropAt?.$date ?? a.dropAt);
+        const dateB = new Date(b.dropAt?.$date ?? b.dropAt);
+        return dateA - dateB;
+      });
+    const live = products.filter((p) => p.dropStatus === "Live");
 
-    const toRender = products.length > 0 ? products : TEMP_PRODUCTS;
-    if (products.length === 0) {
-      productsContainer.dataset.temp = "true";
-      const notice = document.createElement("p");
-      notice.className = "temp-notice";
-      notice.textContent = "Showing demo products (backend unavailable)";
-      productsContainer.appendChild(notice);
-    }
-
-    toRender.forEach((product) => {
-      const productCard = createProductCard(product);
-      productsContainer.appendChild(productCard);
-    });
+    renderGrid(upcoming, upcomingContainer);
+    renderGrid(live, liveContainer);
   } catch (error) {
     console.error("Error fetching products:", error);
-    productsContainer.innerHTML = "";
-    productsContainer.dataset.temp = "true";
-    const notice = document.createElement("p");
-    notice.className = "temp-notice";
-    notice.textContent = "Showing demo products (backend unavailable)";
-    productsContainer.appendChild(notice);
-    TEMP_PRODUCTS.forEach((product) => {
-      productsContainer.appendChild(createProductCard(product));
-    });
   }
 }
 
-// Function to create an individual product card
-function createProductCard(product) {
-  const element = document.createElement("div");
-  element.className = "product-card";
+init();
 
-  const imageSection = product.image
-    ? `<img class="product-card__image" src="${product.image}" alt="${product.name}" loading="lazy" />`
-    : `<div class="product-card__image-placeholder">🥬</div>`;
-
-  element.innerHTML = `
-    ${imageSection}
-    <div class="product-card__body">
-      <h3>${product.name}</h3>
-      <p class="product-card__price">$${product.price.toFixed(2)}</p>
-      <button class="add-to-cart-btn">Add to Cart</button>
-    </div>
-  `;
-
-  element.querySelector(".add-to-cart-btn").addEventListener("click", () => {
-    alert(`Adding ${product.name} to cart\nFunctionality not implemented yet`);
-  });
-
-  return element;
-}
