@@ -296,10 +296,8 @@ form.addEventListener("submit", async (e) => {
   formData.append("brand", brand);
   formData.append("price", price);
   formData.append("description", description);
-  formData.append("dropAt", dropAt);
-  if (dropEnd) {
-    formData.append("dropEnd", dropEnd);
-  }
+  if (dropAt) formData.append("dropAt", new Date(dropAt).toISOString());
+  if (dropEnd) formData.append("dropEnd", new Date(dropEnd).toISOString());
   formData.append("colors", JSON.stringify(colorPairs));
   formData.append("sizes", JSON.stringify(sizePairs));
   for (let i = 0; i < files.length; i++) {
@@ -416,7 +414,7 @@ function populateFormForEdit(product) {
   document.getElementById("brand").value = product.brand || "";
   document.getElementById("price").value = product.price || "";
   document.getElementById("description").value = product.description || "";
-  document.getElementById("dropAt").value = product.dropAt ? new Date(product.dropAt).toISOString().slice(0, 16) : "";
+  document.getElementById("dropAt").value = product.dropAt ? (() => { const d = new Date(product.dropAt); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16); })() : "";
   document.getElementById("dropEnd").value = product.dropEnd ? product.dropEnd.slice(0, 10) : "";
   document.getElementById("slug").value = product.slug || "";
   document.getElementById("modalTitle").textContent = "Update Product";
