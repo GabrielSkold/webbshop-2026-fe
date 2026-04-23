@@ -82,7 +82,7 @@
   height: 600px;
   overflow: hidden;
   border: 2px solid black;
-  gap: 2px;
+  background: #f6f6f6;
   filter: drop-shadow(5px 5px 0px #000000);
 }
 
@@ -96,12 +96,13 @@
   display: flex;
   align-items: center;
   transition: width 0.1s, flex 0.5s;
+  border: solid 2px #000000;
 }
 
 .shelf-item.active {
   width: auto;
   flex: 1;
-  border: none;
+  border: solid 2px black;
 }
 
 .shelf-item img {
@@ -169,6 +170,7 @@
   .shelf-item {
     width: 0;
     overflow: hidden;
+    border: none;
   }
   .shelf-item.active img {
     width: 100%;
