@@ -3,11 +3,6 @@ const footer = document.querySelector(".site-footer");
 footer.innerHTML = `
     <div class="footer-content">
         <div class="footer-links">
-            <p>SOLE SEARCH</p>
-            <p>Sole street 11, 404 04 London</p>
-            <p>&copy; 2026 Sole Search, Inc. All rights reserved.</p>
-        </div>
-        <div class="footer-links">
         <a href="/news.html">News</a>
             <a href="/about.html">About</a>
             <a href="contact.html">Contact</a>
