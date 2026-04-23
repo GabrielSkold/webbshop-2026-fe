@@ -1243,7 +1243,6 @@ body {
   align-items: center;
 }
 
-<<<<<<< HEAD
 /* Checkout page */
 /* Checkout */
 .checkout-main {
@@ -1461,7 +1460,6 @@ body {
   display: block;
   margin: 12px auto 0;
 }
-=======
 /*media queries*/
 
 @media (max-width: 1920px) and (min-width: 1600px) {
@@ -2049,4 +2047,3 @@ body {
     font-size: 11px;
   }
 }
->>>>>>> feature/filter
