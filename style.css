@@ -1,5 +1,39 @@
 /*@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@400;500;600;700&display=swap");*/
 
+/* ================================
+   SCROLLBAR — macOS/iOS style
+================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(24, 24, 24, 0.28) transparent;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(24, 24, 24, 0.28);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 24, 24, 0.45);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 :root {
   --font-heading: "Outfit", system-ui, sans-serif;
   --font-body: "AtypDisplay-Regular", system-ui, sans-serif;
@@ -136,11 +170,7 @@ body {
 }
 
 .underheader {
-  /* for animation */
   overflow: hidden;
-  border:
-    1px,
-    solid black; /* for test */
   height: 25px;
   background-color: white;
   display: flex;
