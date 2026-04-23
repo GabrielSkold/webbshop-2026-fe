@@ -1479,6 +1479,17 @@ body {
   color: var(--color-text);
 }
 
+.team-email {
+  margin: 4px 0 0;
+  font-size: 11px;
+  text-align: center;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 @media (max-width: 640px) {
   .team-grid {
     grid-template-columns: 1fr;
