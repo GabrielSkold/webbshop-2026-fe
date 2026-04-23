@@ -22,8 +22,8 @@ const renderWishlistItems = async () => {
   const token = localStorage.getItem("token")
   if (!token) {
     wishlistContainer.innerHTML = "<p>You need to be logged in to view your wishlist.</p>"
+    return
   }
-  return
 
   let wishlist = [];
   try {
