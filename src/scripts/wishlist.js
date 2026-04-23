@@ -5,6 +5,9 @@ import { getWishlist, removeFromWishlist } from "../utils/wishlistApi.js";
 updateCartCount();
 
 export const updateWishlistCount = async () => {
+  const token = localStorage.getItem("token")
+  if(!token) return
+
   const wishlist = await getWishlist().catch(() => []);
   const wishlistLink = document.querySelector("#wishlist-link");
   if (wishlistLink) {
