@@ -22,8 +22,10 @@ header.innerHTML = `
                 <a id="cart-link" href="shoppingcart.html"><i class="fa-solid fa-cart-shopping"></i>(0)</a>
                 <li><a id="wishlist-link" href="wishlist.html"><i class="fa-solid fa-heart"></i></a></li>
                 <a id="account-link" href="loginpage.html">Log In</a>
-                </nav>
-                `;
+            </div>
+        </div>
+    </nav>
+`;
 
 const ul = document.querySelector('.brand-links')
 while (ul.scrollWidth < window.innerWidth * 2) {
