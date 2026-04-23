@@ -81,7 +81,12 @@ export async function initHeroShelf() {
       dropStatus: p.dropStatus,
       dropAt: p.dropAt,
       dropEnd: p.dropEnd,
-    }));
+    }))
+    .sort((a, b) => {
+      const aDate = new Date(a.dropAt?.$date ?? a.dropAt);
+      const bDate = new Date(b.dropAt?.$date ?? b.dropAt);
+      return aDate - bDate;
+    });
 
   if (!products.length) {
     document.querySelector(".hero-shelf-section")?.remove();
