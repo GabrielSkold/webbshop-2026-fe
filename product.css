@@ -19,8 +19,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 50px;
-
-  min-height: calc(100vh - 85px); /* hur mycket som syns */
 }
 
 /* LEFT: image panel */
@@ -307,12 +305,11 @@ body {
 }
 /* For cart */
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .product-page {
     grid-template-columns: 1fr;
     padding: 0 20px;
     gap: 0;
-    min-height: unset;
   }
 
   .product-page__image-panel {
