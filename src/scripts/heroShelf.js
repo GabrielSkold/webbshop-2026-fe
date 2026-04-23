@@ -39,19 +39,24 @@ function updateInfo() {
 function buildShelf() {
   shelfEl.innerHTML = "";
 
-  products.slice(0, VISIBLE).forEach((product, i) => {
+  const half = Math.floor(VISIBLE / 2);
+  const start = Math.min(Math.max(activeIndex - half, 0), Math.max(products.length - VISIBLE, 0));
+  const end = Math.min(start + VISIBLE, products.length);
+
+  products.slice(start, end).forEach((product, i) => {
+    const globalIndex = start + i;
     const item = document.createElement("div");
-    item.className = "shelf-item" + (i === activeIndex ? " active" : "");
+    item.className = "shelf-item" + (globalIndex === activeIndex ? " active" : "");
 
     const img = document.createElement("img");
     img.src = product.imageUrl;
     item.appendChild(img);
 
     item.addEventListener("click", () => {
-      if (i === activeIndex) {
+      if (globalIndex === activeIndex) {
         window.location.href = `product.html?slug=${product.slug}`;
       } else {
-        activeIndex = i;
+        activeIndex = globalIndex;
         buildShelf();
         updateInfo();
       }
