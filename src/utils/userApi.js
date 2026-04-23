@@ -69,7 +69,7 @@ export async function getProfile() {
 
     if(response.status === 401) {
         localStorage.removeItem("token");
-        window.location.href = "/loginpage.html";
+        throw new Error ("Unauthorized")
     }
 
     const err = await response.json().catch(() => ({}));
