@@ -47,20 +47,25 @@ function setImage(index) {
 
 function enableSizeButtons(sizes, sizeButtons) {
   sizeButtons.forEach((btn) => {
+    const sizeObj = sizes.find((s) => String(s.size) === btn.dataset.size);
+
+    if (!sizeObj || sizeObj.stock === 0) {
+      btn.disabled = true;
+      btn.classList.add("out-of-stock");
+      return;
+    }
+
     btn.disabled = false;
     btn.classList.remove("out-of-stock");
     btn.addEventListener("click", () => {
       sizeButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
       selectedSize = btn.dataset.size;
-      const selectedSizeObject = sizes.find(
-        (s) => String(s.size) === selectedSize,
-      );
-      addToCartButton.disabled = selectedSizeObject.stock === 0;
-      addToCartButton.textContent =
-        selectedSizeObject.stock > 0 ? "ADD TO CART" : "OUT OF STOCK";
+      addToCartButton.disabled = false;
+      addToCartButton.textContent = "ADD TO CART";
     });
   });
+
   addToCartButton.disabled = true;
   addToCartButton.textContent = "SELECT SIZE";
 }
