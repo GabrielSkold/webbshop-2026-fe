@@ -41,6 +41,7 @@ const renderWishlistItems = async () => {
   }
 
   wishlistContainer.innerHTML = wishlist
+    .filter((item) => item.product != null)
     .map(
       (item) => `
         <div class="wishlist-item-wrapper">
