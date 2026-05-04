@@ -43,7 +43,7 @@ document.addEventListener("click", (e) => {
 });
 
 const ul = document.querySelector('.brand-links')
-for (let i = 0; i < 6 && ul.scrollWidth < window.innerWidth * 2; i++) {
+while (ul.scrollWidth < window.innerWidth * 2) {
     ul.innerHTML += ul.innerHTML
 }
 
